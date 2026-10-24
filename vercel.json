@@ -5,11 +5,16 @@
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]
     }
+  ],
+  "rewrites": [
+    { "source": "/club", "destination": "/index.html" },
+    { "source": "/club/", "destination": "/index.html" },
+    { "source": "/carta", "destination": "/index.html" },
+    { "source": "/carta/", "destination": "/index.html" },
+    { "source": "/local", "destination": "/index.html" },
+    { "source": "/local/", "destination": "/index.html" }
   ]
 }
