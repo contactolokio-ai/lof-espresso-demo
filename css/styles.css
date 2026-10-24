@@ -848,3 +848,10 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 .g-mini { margin: 20px 0; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .g-mini-q { margin: 8px 0 12px; }
 @media (min-width: 760px) { .g-cta { flex-direction: row; align-items: center; } }
+
+/* —— v7 carrusel horizontal reseñas —— */
+.g-list { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; overscroll-behavior-x: contain; margin: 0 -20px; padding: 4px 20px 8px; scroll-padding-left: 20px; }
+.g-list::-webkit-scrollbar { display: none; }
+.g-list li, .g-list li:first-child { flex: 0 0 82%; max-width: 360px; scroll-snap-align: start; border: 1px solid var(--line); border-top: 3px solid var(--ink); padding: 18px 16px; display: flex; flex-direction: column; background: transparent; }
+.g-list li p { flex: 1; }
+@media (min-width: 760px) { .g-list li, .g-list li:first-child { flex-basis: 340px; } }
