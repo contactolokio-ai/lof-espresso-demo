@@ -14,14 +14,14 @@
 <meta property="og:url" content="https://lof-espresso.lokio.cl/">
 <meta property="og:title" content="Lof Espresso · Café de especialidad en Rancagua">
 <meta property="og:description" content="Café de especialidad en Paseo Estado 498. Pastelería, helado artesanal y espresso. La comunidad del espresso.">
-<meta property="og:image" content="https://lof-espresso.lokio.cl/assets/og-share.jpg?v=2">
+<meta property="og:image" content="https://lof-espresso.lokio.cl/assets/og-share.jpg?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Lof Espresso — café de especialidad en Rancagua">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Lof Espresso · Café de especialidad en Rancagua">
 <meta name="twitter:description" content="Café de especialidad en Paseo Estado 498. Pastelería, helado artesanal y espresso.">
-<meta name="twitter:image" content="https://lof-espresso.lokio.cl/assets/og-share.jpg?v=2">
+<meta name="twitter:image" content="https://lof-espresso.lokio.cl/assets/og-share.jpg?v=3">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/styles.css?v=2">
+<link rel="stylesheet" href="/css/styles.css?v=3">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -81,6 +81,7 @@
       <h1>Lof Espresso</h1>
       <p class="what">Café de especialidad en el corazón de Rancagua</p>
       <p class="tag">La comunidad del espresso</p>
+      <p class="tag-sub">Un café para cada persona, una pausa para todos</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#carta">Ver carta</a>
         <a class="btn btn-ghost" href="https://wa.me/56991872960" target="_blank" rel="noopener">Escribir por WhatsApp</a>
@@ -91,6 +92,9 @@
   <section class="intro" aria-labelledby="intro-title">
     <div class="wrap">
       <h2 id="intro-title" class="sec-title">El local</h2>
+      <figure class="intro-photo">
+        <img src="/assets/local-interior.jpg?v=3" width="1600" height="1322" alt="Interior de Lof Espresso en Paseo Estado 498, Rancagua" loading="lazy">
+      </figure>
       <p>En el corazón de Rancagua, en Paseo Estado 498, preparamos café de especialidad para quedarse o llevar (take away desde las 7:30). Espresso, pastelería del día y helado artesanal.</p>
       <p>Si vienes por primera vez o quieres encargar algo, escríbenos por WhatsApp.</p>
     </div>
@@ -99,39 +103,334 @@
   <section id="carta" aria-labelledby="carta-title">
     <div class="wrap">
       <h2 id="carta-title" class="sec-title">Carta</h2>
-      <p class="sec-lead">Precios de pastelería y helado según menú físico. Bebidas de café: precios por confirmar (carta completa en actualización). <a href="https://canva.link/tcjgca4y9dttv3z" target="_blank" rel="noopener">Ver menú online</a></p>
+      <p class="sec-lead">Carta 2026 · Precios en pesos chilenos. <a href="https://canva.link/tcjgca4y9dttv3z" target="_blank" rel="noopener">Ver menú online</a></p>
 
       <div class="carta-nav" data-carta-nav role="tablist" aria-label="Secciones de la carta">
         <button type="button" role="tab" data-panel="cafe" aria-selected="true" aria-controls="panel-cafe" id="tab-cafe">Café</button>
+        <button type="button" role="tab" data-panel="frios" aria-selected="false" aria-controls="panel-frios" id="tab-frios">Fríos</button>
+        <button type="button" role="tab" data-panel="comida" aria-selected="false" aria-controls="panel-comida" id="tab-comida">Comida</button>
         <button type="button" role="tab" data-panel="pasteleria" aria-selected="false" aria-controls="panel-pasteleria" id="tab-pasteleria">Pastelería</button>
         <button type="button" role="tab" data-panel="helado" aria-selected="false" aria-controls="panel-helado" id="tab-helado">Helado</button>
       </div>
 
       <div id="panel-cafe" class="carta-panel" data-carta-panel="cafe" role="tabpanel" aria-labelledby="tab-cafe">
         <div class="menu-block">
-          <h3>Carta de café</h3>
-          <p class="menu-note">Café de especialidad. Orígenes y precios del menú completo: por confirmar con el local.</p>
+          <h3>Cafetería caliente</h3>
           <ul class="menu-list">
             <li>
               <span class="item-name">Espresso</span>
-              <span class="item-price pending">Precio por confirmar</span>
+              <span class="item-price">$2.590</span>
+              <span class="item-desc">38 a 50 ml</span>
+            </li>
+            <li>
+              <span class="item-name">Lungo</span>
+              <span class="item-price">$2.600</span>
+              <span class="item-desc">Espresso doble + 60 ml agua</span>
             </li>
             <li>
               <span class="item-name">Americano</span>
-              <span class="item-price pending">Precio por confirmar</span>
+              <span class="item-price">$2.900</span>
+              <span class="item-desc">Espresso doble + 180 ml agua</span>
+            </li>
+            <li>
+              <span class="item-name">Macchiato</span>
+              <span class="item-price">$2.900</span>
+              <span class="item-desc">Espresso doble + toque leche espumada</span>
             </li>
             <li>
               <span class="item-name">Cappuccino</span>
-              <span class="item-price pending">Precio por confirmar</span>
+              <span class="item-price">$3.200</span>
+              <span class="item-desc">Espresso simple + leche texturizada</span>
+            </li>
+            <li>
+              <span class="item-name">Flat White</span>
+              <span class="item-price">$3.200</span>
+              <span class="item-desc">Espresso doble + leche texturizada</span>
             </li>
             <li>
               <span class="item-name">Latte</span>
-              <span class="item-price pending">Precio por confirmar</span>
+              <span class="item-price">$3.500</span>
+              <span class="item-desc">Espresso simple + leche texturizada</span>
             </li>
             <li>
-              <span class="item-name">Filtrados</span>
-              <span class="item-price pending">Precio por confirmar</span>
-              <span class="item-desc">Métodos del día — consultar en barra</span>
+              <span class="item-name">Mocaccino</span>
+              <span class="item-price">$4.000</span>
+              <span class="item-desc">Espresso doble + cacao + leche</span>
+            </li>
+            <li>
+              <span class="item-name">Caramel Latte</span>
+              <span class="item-price">$4.200</span>
+              <span class="item-desc">Espresso doble + syrup caramelo + leche</span>
+            </li>
+            <li>
+              <span class="item-name">Avellana Latte</span>
+              <span class="item-price">$4.200</span>
+              <span class="item-desc">Espresso doble + syrup avellana + leche</span>
+            </li>
+            <li>
+              <span class="item-name">Dirty Chai Latte</span>
+              <span class="item-price">$4.200</span>
+              <span class="item-desc">Espresso + té chai + leche</span>
+            </li>
+            <li>
+              <span class="item-name">Mocaccino Avellana</span>
+              <span class="item-price">$4.600</span>
+              <span class="item-desc">Espresso doble, cacao, syrup avellana, leche</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="menu-block">
+          <h3>Bebidas calientes</h3>
+          <ul class="menu-list">
+            <li>
+              <span class="item-name">Bomba de Chocolate</span>
+              <span class="item-price">$4.990</span>
+              <span class="item-desc">Bola de chocolate, malva y cacao en leche caliente</span>
+            </li>
+            <li>
+              <span class="item-name">Chocolate caliente</span>
+              <span class="item-price">$4.200</span>
+              <span class="item-desc">Cacao dulce o amargo + leche</span>
+            </li>
+            <li>
+              <span class="item-name">Matcha Latte</span>
+              <span class="item-price">$4.200</span>
+              <span class="item-desc">Té matcha + leche</span>
+            </li>
+            <li>
+              <span class="item-name">Chai Latte</span>
+              <span class="item-price">$3.500</span>
+              <span class="item-desc">Té chai + leche</span>
+            </li>
+            <li>
+              <span class="item-name">Tetera de té artesanal</span>
+              <span class="item-price">$3.800</span>
+              <span class="item-desc">600 ml — negro, negro con canela, jazmín o manzanilla</span>
+            </li>
+            <li>
+              <span class="item-name">Tetera de té chai</span>
+              <span class="item-price">$3.990</span>
+              <span class="item-desc">600 ml</span>
+            </li>
+            <li>
+              <span class="item-name">Tetera Butterfly Tea</span>
+              <span class="item-price">$4.200</span>
+              <span class="item-desc">600 ml, butterfly iced</span>
+            </li>
+            <li>
+              <span class="item-name">Té taza variedades</span>
+              <span class="item-price">$2.490</span>
+              <span class="item-desc">450 ml</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="menu-block">
+          <h3>Extras, filtrado y tostadores</h3>
+          <ul class="menu-list">
+            <li>
+              <span class="item-name">Filtrado</span>
+              <span class="item-price">$4.000–$6.000</span>
+              <span class="item-desc">Café de origen, V60</span>
+            </li>
+            <li>
+              <span class="item-name">Iced</span>
+              <span class="item-price">+$300</span>
+              <span class="item-desc">Transformar a frío</span>
+            </li>
+            <li>
+              <span class="item-name">Leche vegetal</span>
+              <span class="item-price">+$990</span>
+            </li>
+            <li>
+              <span class="item-name">Shot extra</span>
+              <span class="item-price">+$600</span>
+              <span class="item-desc">Café o syrup</span>
+            </li>
+            <li>
+              <span class="item-name">Cuarto Niebla 250 g</span>
+              <span class="item-price">$14.500</span>
+              <span class="item-desc">Tostador local, variedades</span>
+            </li>
+            <li>
+              <span class="item-name">Cuarto Tengu 250 g</span>
+              <span class="item-price">$14.500</span>
+              <span class="item-desc">Tostador local, variedades</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="panel-frios" class="carta-panel" data-carta-panel="frios" role="tabpanel" aria-labelledby="tab-frios" hidden>
+        <div class="menu-block">
+          <h3>Cafetería fría</h3>
+          <ul class="menu-list">
+            <li>
+              <span class="item-name">Affogatto vainilla</span>
+              <span class="item-price">$4.590</span>
+              <span class="item-desc">Espresso doble + helado artesanal de vainilla</span>
+            </li>
+            <li>
+              <span class="item-name">Café helado</span>
+              <span class="item-price">$5.900</span>
+              <span class="item-desc">Espresso doble, leche, helado artesanal, crema chantilly</span>
+            </li>
+            <li>
+              <span class="item-name">Espresso naranja</span>
+              <span class="item-price">$4.990</span>
+              <span class="item-desc">Espresso doble + jugo natural de naranja</span>
+            </li>
+            <li>
+              <span class="item-name">Espresso tonic</span>
+              <span class="item-price">$4.990</span>
+              <span class="item-desc">Espresso doble + agua tónica</span>
+            </li>
+            <li>
+              <span class="item-name">Cold brew</span>
+              <span class="item-price">$3.990</span>
+              <span class="item-desc">160 ml café frío macerado</span>
+            </li>
+            <li>
+              <span class="item-name">Lof Ginger</span>
+              <span class="item-price">$4.990</span>
+              <span class="item-desc">Espresso doble + cerveza de jengibre artesanal (sin alcohol)</span>
+            </li>
+            <li>
+              <span class="item-name">Shot extra pulpa</span>
+              <span class="item-price">+$800</span>
+              <span class="item-desc">Pulpa variedades</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="menu-block">
+          <h3>Bebidas frías</h3>
+          <ul class="menu-list">
+            <li>
+              <span class="item-name">Frozen shake</span>
+              <span class="item-price">$3.590</span>
+              <span class="item-desc">Batido de frutas + leche + hielo</span>
+            </li>
+            <li>
+              <span class="item-name">Jugo prensado en frío</span>
+              <span class="item-price">$2.900</span>
+            </li>
+            <li>
+              <span class="item-name">Jugo naranja / naranja mango</span>
+              <span class="item-price">$2.900</span>
+              <span class="item-desc">Jugos naturales Sofruco</span>
+            </li>
+            <li>
+              <span class="item-name">Bebida variedades</span>
+              <span class="item-price">$2.200</span>
+            </li>
+            <li>
+              <span class="item-name">Agua mineral</span>
+              <span class="item-price">$1.500</span>
+            </li>
+            <li>
+              <span class="item-name">Agua gasificada Sofruco</span>
+              <span class="item-price">$2.200</span>
+              <span class="item-desc">Con jugo 100% natural</span>
+            </li>
+            <li>
+              <span class="item-name">Ice té de rooibos</span>
+              <span class="item-price">$3.900</span>
+            </li>
+            <li>
+              <span class="item-name">Ice té de limón</span>
+              <span class="item-price">$3.900</span>
+            </li>
+            <li>
+              <span class="item-name">Ice chai latte</span>
+              <span class="item-price">$3.900</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="menu-block">
+          <h3>Matcha frío</h3>
+          <ul class="menu-list">
+            <li>
+              <span class="item-name">Matcha naranja</span>
+              <span class="item-price">$4.990</span>
+            </li>
+            <li>
+              <span class="item-name">Ice matcha latte</span>
+              <span class="item-price">$4.990</span>
+              <span class="item-desc">Matcha, leche, hielo, syrup de la casa</span>
+            </li>
+            <li>
+              <span class="item-name">Matcha tonic</span>
+              <span class="item-price">$4.990</span>
+            </li>
+            <li>
+              <span class="item-name">Strawberry matcha latte</span>
+              <span class="item-price">$5.590</span>
+              <span class="item-desc">Matcha, syrup de frutilla, leche</span>
+            </li>
+            <li>
+              <span class="item-name">Mango matcha latte</span>
+              <span class="item-price">$5.590</span>
+              <span class="item-desc">Matcha, pulpa de mango, leche</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="panel-comida" class="carta-panel" data-carta-panel="comida" role="tabpanel" aria-labelledby="tab-comida" hidden>
+        <div class="menu-block">
+          <h3>Tostadas y sándwich</h3>
+          <ul class="menu-list">
+            <li>
+              <span class="item-name">Paila huevos (3)</span>
+              <span class="item-price">$5.900</span>
+              <span class="item-desc">Adicionales: tocino, jamón, queso, champiñón</span>
+            </li>
+            <li>
+              <span class="item-name">Tostada PB&amp;J</span>
+              <span class="item-price">$4.990</span>
+              <span class="item-desc">Pan masa madre, mantequilla de maní, mermelada</span>
+            </li>
+            <li>
+              <span class="item-name">Empanada veggie</span>
+              <span class="item-price">$4.590</span>
+              <span class="item-desc">Queso mozzarella vegetal + tomate/aceituna, o choclo/champiñón</span>
+            </li>
+            <li>
+              <span class="item-name">Aliado</span>
+              <span class="item-price">$3.990</span>
+              <span class="item-desc">Ciabatta, jamón y queso sin lactosa</span>
+            </li>
+            <li>
+              <span class="item-name">Churrasco Lof Veggie</span>
+              <span class="item-price">$7.690</span>
+              <span class="item-desc">Ciabatta, seitán de garbanzos, palmitos, cebolla caramelizada, mayonesa ajo vegana, papas fritas</span>
+            </li>
+            <li>
+              <span class="item-name">Caprese Lof</span>
+              <span class="item-price">$7.690</span>
+              <span class="item-desc">Ciabatta, pimentón asado, queso crema, pesto, aceitunas negras, papas fritas</span>
+            </li>
+            <li>
+              <span class="item-name">Lof Lunch</span>
+              <span class="item-price">$6.300</span>
+              <span class="item-desc">Palta, huevo, jamón artesanal, tomate cherry, champiñón, multisemillas, hummus, papas fritas</span>
+            </li>
+            <li>
+              <span class="item-name">Croissant jamón queso</span>
+              <span class="item-price">$5.500</span>
+            </li>
+            <li>
+              <span class="item-name">Tostadas palta</span>
+              <span class="item-price">$6.590</span>
+              <span class="item-desc">Pan masa madre, palta, tomate cherry, multisemillas, hummus</span>
+            </li>
+            <li>
+              <span class="item-name">Tostadas huevo</span>
+              <span class="item-price">$6.590</span>
+              <span class="item-desc">Pan masa madre, huevo revuelto, tomate cherry, multisemillas, hummus</span>
             </li>
           </ul>
         </div>
@@ -148,7 +447,7 @@
             <li>
               <span class="item-name">Trozo de torta</span>
               <span class="item-price">$5.490</span>
-              <span class="item-desc">Torta del día: consultar</span>
+              <span class="item-desc">Consultar torta del día</span>
             </li>
             <li>
               <span class="item-name">Trozo de cheesecake</span>
@@ -157,34 +456,35 @@
             <li>
               <span class="item-name">Media luna</span>
               <span class="item-price">$1.590</span>
-              <span class="item-desc">Con caramelo $1.990</span>
+              <span class="item-desc">Topping syrup caramelo</span>
             </li>
             <li>
               <span class="item-name">Media luna dulce de leche</span>
-              <span class="item-price">$3.500</span>
+              <span class="item-price">$1.990</span>
             </li>
             <li>
               <span class="item-name">Brownie</span>
-              <span class="item-price">$2.990</span>
+              <span class="item-price">$3.500</span>
             </li>
             <li>
               <span class="item-name">Rollito de canela</span>
-              <span class="item-price">$3.590</span>
+              <span class="item-price">$2.990</span>
+              <span class="item-desc">Topping syrup caramelo</span>
             </li>
             <li>
               <span class="item-name">Tartaleta variedades</span>
-              <span class="item-price">$3.500</span>
-              <span class="item-desc">Lúcuma; manjar y nuez; Snickers</span>
+              <span class="item-price">$3.590</span>
+              <span class="item-desc">Lúcuma manjar y nuez (topping amapola); Snickers (chocolate maní)</span>
             </li>
             <li>
               <span class="item-name">Alfajor</span>
-              <span class="item-price pending">Precio por confirmar</span>
+              <span class="item-price">$1.990</span>
               <span class="item-desc">Relleno mantequilla de maní y frambuesa</span>
             </li>
             <li>
-              <span class="item-name">New York cookies</span>
-              <span class="item-price pending">Precio por confirmar</span>
-              <span class="item-desc">Variedades</span>
+              <span class="item-name">New York Cookies</span>
+              <span class="item-price">$3.500</span>
+              <span class="item-desc">Variedades, 1 unidad</span>
             </li>
           </ul>
         </div>
@@ -204,7 +504,7 @@
             </li>
           </ul>
           <p class="menu-sub"><strong>Salsas:</strong> chocolate, caramelo, frambuesa</p>
-          <p class="menu-sub"><strong>Toppings:</strong> cookie, chips de chocolate, chubi / sprinkles, crema</p>
+          <p class="menu-sub"><strong>Toppings:</strong> galleta (obsesión), chips de chocolate, colores (chubi o mostacillas), crema chantilly</p>
         </div>
       </div>
     </div>
@@ -279,6 +579,6 @@
   WhatsApp
 </a>
 
-<script src="/js/main.js?v=2" defer></script>
+<script src="/js/main.js?v=3" defer></script>
 </body>
 </html>
