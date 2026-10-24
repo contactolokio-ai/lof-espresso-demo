@@ -829,3 +829,22 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
   .hero--photo { min-height: min(70vh, 600px); }
   .carta-chips { top: 64px; justify-content: center; }
 }
+
+/* —— v6 WhatsApp oficial + reseñas Google —— */
+.header-wa { color: #fff; background: #25D366; border-color: #25D366; border-radius: 50%; }
+.header-wa svg { width: 22px; height: 22px; }
+.enlaces-btns a.wa, .enlaces .wa { background: #25D366 !important; border-color: #25D366 !important; color: #fff !important; }
+.btn-wa { background: #25D366; border: 1px solid #25D366; color: #fff; }
+.wa-sticky { background: #25D366; }
+.g-rating { margin: -4px 0 18px; font-size: 15px; }
+.g-list { list-style: none; margin: 0; padding: 0; }
+.g-list li { padding: 18px 0; border-top: 1px solid var(--line); }
+.g-list li:first-child { border-top: 2px solid var(--ink); }
+.g-list p { margin: 6px 0 8px; font-size: 17px; line-height: 1.45; }
+.g-stars, .g-mini strong { color: var(--ink); letter-spacing: 2px; font-size: 14px; }
+.g-list cite, .g-mini cite { font-style: normal; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; opacity: .7; }
+.g-cta { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.g-more { font-weight: 600; text-decoration: underline; color: var(--ink); }
+.g-mini { margin: 20px 0; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.g-mini-q { margin: 8px 0 12px; }
+@media (min-width: 760px) { .g-cta { flex-direction: row; align-items: center; } }
