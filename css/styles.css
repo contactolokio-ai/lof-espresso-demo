@@ -1,0 +1,392 @@
+/* Lof Espresso — maqueta Lokio. Paleta del menú físico: tinta carbón + papel crema. */
+:root {
+  --ink: #2a2a2a;
+  --ink-soft: #4a433c;
+  --muted: #6e655c;
+  --paper: #f4efe6;
+  --paper-deep: #ebe4d6;
+  --line: #c9beae;
+  --accent: #6b4e3d;
+  --accent-soft: #8a6a52;
+  --wa: #1f6b46;
+  --lokio: #ff4f17;
+  --max: 720px;
+  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "IBM Plex Sans", system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image: url("../assets/paper-grain.jpg");
+  background-size: 400px;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { color: var(--ink); }
+
+.skip {
+  position: absolute; left: -999px; top: 0;
+  background: var(--ink); color: var(--paper); padding: 8px 12px; z-index: 100;
+}
+.skip:focus { left: 8px; }
+
+/* —— Header —— */
+.site-header {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 10px 16px;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--ink);
+}
+.brand img { width: 44px; height: 44px; border-radius: 50%; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+.brand-text strong { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.01em; }
+.brand-text span { font-size: 0.72rem; color: var(--muted); }
+.nav-links { display: flex; gap: 14px; align-items: center; }
+.nav-links a {
+  text-decoration: none; color: var(--ink-soft);
+  font-size: 0.88rem; font-weight: 500;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  display: none;
+  background: var(--ink) !important; color: var(--paper) !important;
+  padding: 8px 14px; border-radius: 2px; font-weight: 600 !important;
+}
+@media (min-width: 640px) {
+  .nav-cta { display: inline-block; }
+  .site-header { padding: 12px 28px; }
+}
+
+/* —— Hero —— */
+.hero {
+  position: relative;
+  min-height: min(78vh, 640px);
+  display: flex; align-items: flex-end;
+  padding: 32px 20px 40px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(244,239,230,0.55) 0%, rgba(244,239,230,0.78) 55%, rgba(244,239,230,0.96) 100%),
+    url("../assets/texture-cathedral-soft.jpg") center 30% / cover no-repeat;
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  width: 100%; max-width: var(--max); margin: 0 auto;
+}
+.hero-logo {
+  width: 96px; height: 96px; border-radius: 50%;
+  margin-bottom: 18px;
+  box-shadow: 0 0 0 1px var(--line);
+  background: #fff;
+}
+.hero h1 {
+  margin: 0 0 6px;
+  font-family: var(--font);
+  font-size: clamp(2rem, 7vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.hero .what {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+.hero .tag {
+  margin: 0 0 22px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--accent);
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 20px;
+  border-radius: 2px;
+  font-weight: 600; font-size: 0.95rem;
+  text-decoration: none; border: 1px solid transparent;
+  cursor: pointer;
+}
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover { background: #111; color: var(--paper); }
+.btn-ghost {
+  background: transparent; color: var(--ink);
+  border-color: var(--ink);
+}
+.btn-ghost:hover { background: var(--ink); color: var(--paper); }
+.btn-wa { background: var(--wa); color: #fff; border-color: var(--wa); }
+.btn-wa:hover { filter: brightness(1.08); color: #fff; }
+.btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* —— Sections —— */
+.wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+section { padding: 48px 0; border-bottom: 1px solid var(--line); }
+section:last-of-type { border-bottom: none; }
+.sec-title {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.sec-lead {
+  margin: 0 0 24px;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  max-width: 36em;
+}
+.intro p {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  max-width: 38em;
+}
+.intro p:last-child { margin-bottom: 0; }
+
+/* —— Carta —— */
+.carta-nav {
+  display: flex; gap: 4px; flex-wrap: wrap;
+  margin: 0 0 28px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0;
+}
+.carta-nav button {
+  appearance: none; border: none; background: transparent;
+  font-family: inherit; font-size: 0.92rem; font-weight: 600;
+  color: var(--muted); padding: 10px 14px; cursor: pointer;
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.carta-nav button[aria-selected="true"] {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+.carta-panel[hidden] { display: none; }
+.menu-note {
+  margin: 0 0 18px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.menu-block { margin-bottom: 28px; }
+.menu-block:last-child { margin-bottom: 0; }
+.menu-block h3 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.menu-list { list-style: none; margin: 0; padding: 0; }
+.menu-list li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 12px;
+  padding: 10px 0;
+  border-bottom: 1px dotted var(--line);
+}
+.menu-list li:last-child { border-bottom: none; }
+.item-name {
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+.item-desc {
+  grid-column: 1 / -1;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: -2px;
+}
+.item-price {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.item-price.pending {
+  font-weight: 500;
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+.menu-sub {
+  margin: 8px 0 0;
+  padding: 0 0 0 2px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.menu-sub strong { color: var(--ink-soft); font-weight: 600; }
+
+/* —— Ubicación —— */
+.place-card {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, #fff 55%, var(--paper));
+  padding: 20px;
+}
+.place-card h3 {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+}
+.place-card p { margin: 0 0 8px; color: var(--ink-soft); }
+.place-card .hours {
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 0.92rem;
+}
+.place-card .hours-note {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.place-actions {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-top: 16px;
+}
+
+/* —— Reviews (optional, compact) —— */
+.quotes { margin: 0; padding: 0; list-style: none; }
+.quotes li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+}
+.quotes li:last-child { border-bottom: none; }
+.quotes cite {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font);
+  font-style: normal;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* —— Footer —— */
+.site-footer {
+  padding: 32px 20px 100px;
+  border-top: 1px solid var(--line);
+  background: var(--paper-deep);
+}
+.footer-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.footer-brand {
+  display: flex; align-items: center; gap: 10px;
+}
+.footer-brand img { width: 40px; height: 40px; border-radius: 50%; background: #fff; }
+.footer-meta { font-size: 0.88rem; color: var(--ink-soft); }
+.footer-meta a { color: inherit; }
+.footer-links {
+  display: flex; flex-wrap: wrap; gap: 12px 18px;
+  font-size: 0.88rem;
+}
+.footer-links a { color: var(--ink); text-decoration: none; font-weight: 500; }
+.footer-links a:hover { text-decoration: underline; }
+.lokio-sig {
+  margin-top: 8px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.lokio-sig a {
+  color: inherit; text-decoration: none; font-weight: 500;
+}
+.lokio-sig a:hover { text-decoration: underline; }
+.lokio-sig .io { color: var(--lokio); }
+
+/* —— Sticky WA —— */
+.wa-sticky {
+  position: fixed; right: 14px; bottom: 14px; z-index: 50;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--wa); color: #fff;
+  padding: 12px 16px; border-radius: 2px;
+  text-decoration: none; font-weight: 600; font-size: 0.9rem;
+  box-shadow: 0 4px 18px rgba(42,42,42,0.18);
+}
+.wa-sticky:hover { color: #fff; filter: brightness(1.06); }
+.wa-sticky svg { width: 20px; height: 20px; }
+
+@media (min-width: 720px) {
+  .hero { padding: 48px 28px 56px; }
+  section { padding: 56px 0; }
+}
+
+/* —— Enlaces (link-in-bio) —— */
+body.enlaces-page {
+  min-height: 100dvh;
+  display: flex; flex-direction: column;
+  background:
+    linear-gradient(180deg, rgba(244,239,230,0.88), rgba(244,239,230,0.96)),
+    url("../assets/texture-cathedral-soft.jpg") center top / cover no-repeat;
+}
+.enlaces {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 28px 20px 20px;
+  text-align: center;
+  max-width: 400px; margin: 0 auto; width: 100%;
+}
+.enlaces img.logo {
+  width: 88px; height: 88px; border-radius: 50%;
+  background: #fff; margin-bottom: 14px;
+  box-shadow: 0 0 0 1px var(--line);
+}
+.enlaces h1 {
+  margin: 0 0 4px; font-size: 1.35rem; font-weight: 600;
+}
+.enlaces .line {
+  margin: 0 0 22px;
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--accent);
+  font-size: 1rem;
+}
+.enlaces-btns {
+  display: flex; flex-direction: column; gap: 10px; width: 100%;
+}
+.enlaces-btns a {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 18px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none; font-weight: 600; font-size: 0.98rem;
+  border-radius: 2px;
+}
+.enlaces-btns a.primary {
+  background: var(--ink); color: var(--paper);
+}
+.enlaces-btns a.wa {
+  background: var(--wa); color: #fff; border-color: var(--wa);
+}
+.enlaces-btns a svg { width: 18px; height: 18px; }
+.enlaces-foot {
+  padding: 12px 20px 20px;
+  text-align: center;
+}
