@@ -11,6 +11,9 @@
   --wa: #1f6b46;
   --lokio: #ff4f17;
   --max: 720px;
+  --radius: 16px;
+  --radius-sm: 12px;
+  --radius-xs: 10px;
   --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --display: "IBM Plex Sans", system-ui, sans-serif;
 }
@@ -64,7 +67,7 @@ a:hover { color: var(--ink); }
 .nav-cta {
   display: none;
   background: var(--ink) !important; color: var(--paper) !important;
-  padding: 8px 14px; border-radius: 2px; font-weight: 600 !important;
+  padding: 8px 14px; border-radius: var(--radius-sm); font-weight: 600 !important;
 }
 @media (min-width: 640px) {
   .nav-cta { display: inline-block; }
@@ -129,7 +132,7 @@ a:hover { color: var(--ink); }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   padding: 13px 20px;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
   font-weight: 600; font-size: 0.95rem;
   text-decoration: none; border: 1px solid transparent;
   cursor: pointer;
@@ -270,6 +273,8 @@ section:last-of-type { border-bottom: none; }
   border: 1px solid var(--line);
   background: color-mix(in srgb, #fff 55%, var(--paper));
   padding: 20px;
+  border-radius: var(--radius);
+  overflow: hidden;
 }
 .place-card h3 {
   margin: 0 0 6px;
@@ -605,6 +610,8 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 
 .club-teaser { padding: 36px 0; }
 .club-teaser-card {
+  border-radius: var(--radius);
+  overflow: hidden;
   border: 1px solid var(--line);
   background:
     linear-gradient(135deg, color-mix(in srgb, #fff 40%, var(--paper)), var(--paper-deep)),
@@ -700,7 +707,7 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 .club-form input {
   font-family: inherit; font-size: 1.05rem; font-weight: 500;
   padding: 14px 12px; border: 1px solid var(--line);
-  background: #fff; color: var(--ink); border-radius: 2px;
+  background: #fff; color: var(--ink); border-radius: var(--radius-xs);
   text-transform: none; letter-spacing: 0;
 }
 .club-form input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
@@ -719,9 +726,10 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
     linear-gradient(180deg, color-mix(in srgb, #fff 70%, var(--paper)), var(--paper));
   padding: 18px 16px 16px;
   margin-top: 10px;
-  border-radius: 4px;
+  border-radius: var(--radius);
   box-shadow: 0 8px 24px rgba(42, 42, 42, 0.08);
   overflow: hidden;
+  max-width: 100%;
 }
 .digital-card + .digital-card { margin-top: 12px; }
 .digital-card .dc-band {
@@ -736,9 +744,11 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }
 .digital-card .dc-meta { margin: 0 0 12px; color: var(--muted); font-size: 0.88rem; }
 .stamps {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 12px;
   margin: 14px 0 12px;
   width: 100%;
   max-width: 100%;
@@ -746,24 +756,35 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }
 .stamp {
   aspect-ratio: 1;
-  width: 100%;
-  min-width: 0;
+  width: calc((100% - 36px) / 4);
+  max-width: 58px;
+  min-width: 44px;
+  flex: 0 0 auto;
   box-sizing: border-box;
   border: 1.5px dashed color-mix(in srgb, var(--ink) 28%, var(--line));
   border-radius: 50%;
   background: color-mix(in srgb, #fff 55%, var(--paper));
   display: grid;
   place-items: center;
+  overflow: hidden;
   transition: background .2s, border-color .2s, box-shadow .2s, color .2s;
 }
 .stamp-n {
-  font-size: clamp(0.55rem, 2.6vw, 0.72rem);
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: color-mix(in srgb, var(--ink) 45%, transparent);
   line-height: 1;
   text-align: center;
-  padding: 0 2px;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0 3px;
+  word-break: break-word;
+}
+.stamp.prize-slot .stamp-n {
+  font-size: 0.58rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 .stamp.on {
   background: var(--ink);
@@ -778,8 +799,6 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
   background: color-mix(in srgb, var(--accent) 14%, var(--paper));
 }
 .stamp.prize-slot .stamp-n {
-  font-size: clamp(0.42rem, 2.1vw, 0.58rem);
-  letter-spacing: 0.04em;
   color: color-mix(in srgb, var(--accent) 55%, var(--ink));
 }
 .stamp.prize-slot.on {
@@ -787,7 +806,7 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
   border-color: var(--accent);
   box-shadow: inset 0 0 0 3px var(--paper);
 }
-.stamp.prize-slot.on .stamp-n { color: #fff; font-size: clamp(0.7rem, 3vw, 0.9rem); }
+.stamp.prize-slot.on .stamp-n { color: #fff; font-size: 0.85rem; }
 .dc-top {
   display: flex; align-items: center; justify-content: space-between;
   gap: 8px; margin-bottom: 6px;
@@ -798,8 +817,11 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }
 .dc-prize-tag {
   font-size: 0.78rem; font-weight: 700; color: var(--ink-soft);
-  text-align: right; max-width: 62%;
+  text-align: right; max-width: 48%;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+.dc-top { min-width: 0; }
+.dc-foot span { min-width: 0; overflow-wrap: anywhere; }
 .dc-badge {
   font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em;
   background: var(--ink); color: var(--paper);
@@ -974,3 +996,41 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }
 .search-row { display: flex; gap: 8px; margin: 10px 0; }
 .search-row input { flex: 1; }
+
+
+/* —— Soft corners v12 —— */
+.btn, .btn-primary, .btn-ghost, .btn-ghost-light, .btn-block {
+  border-radius: var(--radius-sm) !important;
+}
+.place-card,
+.club-teaser-card,
+.intro-card,
+.menu-sheet,
+.item-sheet,
+.sheet,
+.help-panel,
+.admin-card,
+.review-card,
+.foto-mosaic img,
+.foto-strip img,
+.local-photo img,
+.form-msg,
+.menu-list.interactive li,
+.carta-item,
+.hours {
+  border-radius: var(--radius-sm);
+}
+.club-form input,
+.club-form textarea,
+.search-row input,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="number"] {
+  border-radius: var(--radius-xs) !important;
+}
+.dc-badge { border-radius: 999px; }
+.bn-item { border-radius: var(--radius-xs); }
+.wrap, .club-view .wrap, .view .wrap { max-width: 100%; overflow-x: clip; }
+.digital-card, .stamps, .dc-foot, .dc-top { max-width: 100%; }

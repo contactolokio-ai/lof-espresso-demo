@@ -12,12 +12,12 @@
   function stampsHTML(n, meta) {
     var m = Math.max(3, Math.min(20, parseInt(meta, 10) || DEFAULT_META));
     var filled = Math.max(0, Math.min(m, parseInt(n, 10) || 0));
-    var cols = m <= 7 ? m : Math.min(7, m);
-    var h = '<div class="stamps" style="grid-template-columns:repeat(' + cols + ',minmax(0,1fr))" aria-label="Sellos ' + filled + ' de ' + m + '">';
+    /* Flex wrap: 4 por fila en móvil, sin desborde */
+    var h = '<div class="stamps stamps--' + m + '" aria-label="Sellos ' + filled + ' de ' + m + '">';
     for (var i = 0; i < m; i++) {
       var isPrize = i === m - 1;
       var cls = "stamp" + (i < filled ? " on" : "") + (isPrize ? " prize-slot" : "");
-      var label = isPrize ? (i < filled ? "✓" : "GRATIS") : String(i + 1);
+      var label = isPrize ? (i < filled ? "✓" : "Gratis") : String(i + 1);
       h += '<span class="' + cls + '" aria-hidden="true"><span class="stamp-n">' + label + "</span></span>";
     }
     h += "</div>";
@@ -45,7 +45,7 @@
     html += '<div class="dc-band" aria-hidden="true"></div>';
     html += '<div class="dc-top"><span class="dc-label">Tarjeta de sellos</span>';
     if (ready) html += '<span class="dc-badge">LISTO</span>';
-    else html += '<span class="dc-prize-tag">' + esc(meta) + " · el " + esc(meta) + ".º gratis</span>";
+    else html += '<span class="dc-prize-tag">' + esc(meta) + "º gratis</span>";
     html += "</div>";
     html += '<p class="dc-brand">Lof Espresso</p>';
     if (name) html += "<h3>" + esc(name) + "</h3>";
