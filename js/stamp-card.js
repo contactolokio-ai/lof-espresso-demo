@@ -9,6 +9,31 @@
     });
   }
 
+  /** Inline SVG taza — usa currentColor; filled=true relleno sólido */
+  function cupSVG(filled, withSteam) {
+    var cup;
+    if (filled) {
+      cup =
+        '<path d="M7 10h14c.6 0 1 .5.9 1.1l-1.4 9.2A2.2 2.2 0 0 1 18.3 22H9.7a2.2 2.2 0 0 1-2.2-1.7L6.1 11.1A1 1 0 0 1 7 10z"/>' +
+        '<path d="M21 12.2c1.7.2 3 1.5 3 3.3s-1.3 3.1-3 3.3"/>' +
+        '<path d="M5.5 23.5h17" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/>';
+    } else {
+      cup =
+        '<path d="M7 10h14c.6 0 1 .5.9 1.1l-1.4 9.2A2.2 2.2 0 0 1 18.3 22H9.7a2.2 2.2 0 0 1-2.2-1.7L6.1 11.1A1 1 0 0 1 7 10z" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linejoin="round"/>' +
+        '<path d="M21 12.2c1.7.2 3 1.5 3 3.3s-1.3 3.1-3 3.3" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round"/>' +
+        '<path d="M5.5 23.5h17" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>';
+    }
+    var steam = withSteam
+      ? '<path d="M11 3.2c.4 1.1-.2 1.8-.2 2.8M15 2.8c.5 1.2-.3 2-.3 3.1M18.5 3.5c.35 1-.15 1.6-.15 2.5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity=".55"/>'
+      : "";
+    return (
+      '<svg class="stamp-cup" viewBox="0 0 28 26" width="28" height="26" aria-hidden="true" focusable="false">' +
+      steam +
+      cup +
+      "</svg>"
+    );
+  }
+
   function stampsHTML(n, meta) {
     var m = Math.max(3, Math.min(20, parseInt(meta, 10) || DEFAULT_META));
     var filled = Math.max(0, Math.min(m, parseInt(n, 10) || 0));
@@ -16,9 +41,23 @@
     var h = '<div class="stamps stamps--' + m + '" aria-label="Sellos ' + filled + ' de ' + m + '">';
     for (var i = 0; i < m; i++) {
       var isPrize = i === m - 1;
-      var cls = "stamp" + (i < filled ? " on" : "") + (isPrize ? " prize-slot" : "");
-      var label = isPrize ? (i < filled ? "✓" : "Gratis") : String(i + 1);
-      h += '<span class="' + cls + '" aria-hidden="true"><span class="stamp-n">' + label + "</span></span>";
+      var isOn = i < filled;
+      var cls = "stamp" + (isOn ? " on" : "") + (isPrize ? " prize-slot" : "");
+      var inner;
+      if (isPrize) {
+        if (isOn) {
+          inner =
+            cupSVG(true, false) +
+            '<span class="stamp-n stamp-n--prize">Gratis</span>';
+        } else {
+          inner =
+            cupSVG(false, true) +
+            '<span class="stamp-n stamp-n--prize">Gratis</span>';
+        }
+      } else {
+        inner = cupSVG(isOn, !isOn);
+      }
+      h += '<span class="' + cls + '" aria-hidden="true">' + inner + "</span>";
     }
     h += "</div>";
     return h;
@@ -43,6 +82,7 @@
 
     var html = '<article class="digital-card' + (ready ? " is-ready" : "") + (demo ? " is-demo" : "") + '">';
     html += '<div class="dc-band" aria-hidden="true"></div>';
+    html += '<div class="dc-ornament" aria-hidden="true"></div>';
     html += '<div class="dc-top"><span class="dc-label">Tarjeta de sellos</span>';
     if (ready) html += '<span class="dc-badge">LISTO</span>';
     else html += '<span class="dc-prize-tag">' + esc(meta) + "º gratis</span>";
