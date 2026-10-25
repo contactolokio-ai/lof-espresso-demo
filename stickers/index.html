@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mis sellos · Club Lof</title>
+<meta name="description" content="Consulta tu tarjeta de sellos del Club Lof Espresso con tu RUT.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#2a2a2a">
+<link rel="canonical" href="https://lof-espresso.lokio.cl/stickers/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css?v=9">
+<style>
+  body.stickers-page { min-height: 100dvh; }
+  .stickers-wrap { max-width: 480px; margin: 0 auto; padding: 24px 16px 48px; }
+  .stickers-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .stickers-brand img { width: 48px; height: 48px; object-fit: cover; border-radius: 2px; }
+  .stickers-brand h1 { margin: 0; font-size: 1.35rem; }
+  .stickers-brand p { margin: 2px 0 0; font-size: 0.88rem; color: var(--muted); }
+  .stickers-foot { margin-top: 28px; text-align: center; font-size: 0.85rem; }
+  .stickers-foot a { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body class="stickers-page">
+  <div class="stickers-wrap">
+    <div class="stickers-brand">
+      <img src="/assets/logo-lof-espresso.jpg" width="48" height="48" alt="Lof Espresso">
+      <div>
+        <h1>Mis sellos</h1>
+        <p>Club Lof · Rancagua</p>
+      </div>
+    </div>
+    <p class="sec-lead" style="margin-top:0">Escribe tu RUT para ver tu tarjeta digital.</p>
+    <form class="club-form" id="form-lookup" autocomplete="on">
+      <label>RUT
+        <input name="rut" inputmode="text" autocomplete="off" placeholder="12.345.678-5" required>
+      </label>
+      <button class="btn btn-primary btn-block" type="submit">Ver mi tarjeta</button>
+      <p class="form-msg" id="msg" hidden></p>
+    </form>
+    <div id="card-area" hidden></div>
+    <p class="stickers-foot">
+      <a href="/#/club">También en la web · Club</a><br>
+      <a href="/">Volver a Lof Espresso</a>
+    </p>
+    <p class="site-credit" style="text-align:center;margin-top:24px;font-size:0.8rem">
+      Web hecha por <a href="https://lokio.cl" target="_blank" rel="noopener">lok<span style="color:#ff4f17">IO</span></a>
+    </p>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
+<script src="/js/supabase-config.js?v=9"></script>
+<script src="/js/rut.js?v=9"></script>
+<script src="/js/stamp-card.js?v=9"></script>
+<script>
+(function () {
+  var cfg = window.LOF_SUPABASE || {};
+  var sb = window.supabase.createClient(cfg.url, cfg.anonKey);
+  var form = document.getElementById("form-lookup");
+  var msg = document.getElementById("msg");
+  var area = document.getElementById("card-area");
+
+  function setMsg(text, ok) {
+    if (!text) { msg.hidden = true; msg.textContent = ""; return; }
+    msg.hidden = false;
+    msg.textContent = text;
+    msg.classList.toggle("ok", !!ok);
+  }
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var rut = String(new FormData(form).get("rut") || "");
+    setMsg("");
+    area.hidden = true;
+    if (!window.LofRut.validate(rut)) {
+      setMsg("RUT inválido. Revisa el dígito verificador.");
+      return;
+    }
+    var btn = form.querySelector('[type="submit"]');
+    btn.disabled = true;
+    try {
+      var res = await sb.rpc("club_get_by_rut", { p_rut: window.LofRut.normalize(rut) });
+      if (res.error) throw res.error;
+      var data = res.data;
+      if (!data || !data.found) {
+        setMsg("No encontramos ese RUT. Regístrate en Club desde la web.");
+        return;
+      }
+      setMsg("Listo — esta es tu tarjeta.", true);
+      area.innerHTML = window.LofStampCard.cardHTML({
+        name: data.member.name,
+        rutFmt: window.LofRut.format(data.member.rut) || data.member.rut,
+        stickers: data.member.stickers,
+        meta: data.meta,
+        premio: data.premio
+      });
+      area.hidden = false;
+    } catch (err) {
+      setMsg("No se pudo consultar. Intenta de nuevo.");
+    } finally {
+      btn.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>

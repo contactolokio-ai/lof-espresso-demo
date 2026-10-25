@@ -174,31 +174,20 @@
     msg.classList.toggle("ok", !!ok);
   }
 
-  function renderCards(member, cards) {
+  function renderCards(member, cards, meta, premio) {
     if (!cardArea) return;
-    var html = "";
-    html += '<div class="digital-card">';
-    html += "<h3>" + escapeHtml(member.name) + "</h3>";
-    html += '<p class="dc-meta">RUT ' + escapeHtml(window.LofRut.format(member.rut) || member.rut) + "</p>";
-    html += "</div>";
-    (cards || []).forEach(function (c) {
-      var req = c.stamps_required || 8;
-      var stamps = c.stamps || 0;
-      html += '<div class="digital-card">';
-      html += "<h3>" + escapeHtml(c.title) + "</h3>";
-      html += '<p class="dc-progress">' + stamps + " / " + req + " sellos</p>";
-      html += '<div class="stamps" aria-label="Progreso de sellos">';
-      for (var i = 0; i < req; i++) {
-        html += '<div class="stamp' + (i < stamps ? " on" : "") + '" aria-hidden="true">' + (i + 1) + "</div>";
-      }
-      html += "</div>";
-      html += '<p class="dc-reward">Canje: ' + escapeHtml(c.reward || "") + "</p>";
-      if (c.redeemed_count) {
-        html += '<p class="dc-meta">Canjes hechos: ' + c.redeemed_count + "</p>";
-      }
-      html += "</div>";
+    var m = typeof meta === "number" ? meta : (cards && cards[0] && cards[0].stamps_required) || 8;
+    var pr = premio || (cards && cards[0] && cards[0].reward) || "1 café de especialidad";
+    var stickers = typeof member.stickers === "number"
+      ? member.stickers
+      : (cards && cards[0] ? cards[0].stamps : 0);
+    cardArea.innerHTML = window.LofStampCard.cardHTML({
+      name: member.name,
+      rutFmt: window.LofRut.format(member.rut) || member.rut,
+      stickers: stickers,
+      meta: m,
+      premio: pr
     });
-    cardArea.innerHTML = html;
     cardArea.hidden = false;
   }
 
@@ -236,7 +225,7 @@
           cardArea.hidden = true;
         } else {
           setMsg(forms.lookup, "Listo — esta es tu tarjeta.", true);
-          renderCards(data.member, data.cards);
+          renderCards(data.member, data.cards, data.meta, data.premio);
         }
       } catch (err) {
         setMsg(forms.lookup, "No se pudo consultar. Intenta de nuevo.");
@@ -262,17 +251,19 @@
       var btn = forms.register.querySelector('button[type="submit"]');
       btn.disabled = true;
       try {
+        var email = String(fd.get("email") || "").trim();
         var data = await rpc("club_register", {
           p_name: name,
           p_rut: window.LofRut.normalize(rut),
-          p_phone: phone || null
+          p_phone: phone || null,
+          p_email: email || null
         });
         if (!data || !data.ok) {
           setMsg(forms.register, "No se pudo registrar. Revisa el RUT.");
           return;
         }
         setMsg(forms.register, "Bienvenido al Club Lof.", true);
-        renderCards(data.member, data.cards);
+        renderCards(data.member, data.cards, data.meta, data.premio);
       } catch (err) {
         setMsg(forms.register, "No se pudo registrar. Intenta de nuevo.");
       } finally {

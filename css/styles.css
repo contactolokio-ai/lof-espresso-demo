@@ -721,23 +721,63 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 .digital-card h3 { margin: 0 0 4px; font-size: 1.1rem; }
 .digital-card .dc-meta { margin: 0 0 14px; color: var(--muted); font-size: 0.88rem; }
 .stamps {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
-  margin: 0 0 12px;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 6px;
+  margin: 12px 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 .stamp {
   aspect-ratio: 1;
-  border: 1px dashed var(--line);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  border: 1.5px dashed var(--line);
   border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.72rem; font-weight: 700; color: var(--muted);
-  background: var(--paper);
-  transition: background .2s, border-color .2s, color .2s, transform .15s;
+  background: color-mix(in srgb, #fff 40%, var(--paper));
+  transition: background .2s, border-color .2s, box-shadow .2s;
 }
 .stamp.on {
-  background: var(--ink); color: var(--paper);
-  border-style: solid; border-color: var(--ink);
-  transform: scale(1.02);
+  background: var(--ink);
+  border-style: solid;
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 3px var(--paper);
 }
+.stamp.prize-slot {
+  border-color: color-mix(in srgb, var(--accent) 70%, var(--ink));
+  background: color-mix(in srgb, var(--accent) 12%, var(--paper));
+}
+.stamp.prize-slot.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 3px var(--paper);
+}
+.dc-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; margin-bottom: 8px;
+}
+.dc-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+}
+.dc-prize-tag {
+  font-size: 0.78rem; font-weight: 600; color: var(--ink-soft);
+  text-align: right; max-width: 60%;
+}
+.dc-badge {
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em;
+  background: var(--ink); color: var(--paper);
+  padding: 4px 8px; border-radius: 2px;
+}
+.digital-card.is-ready { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+.dc-foot {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 10px; margin-top: 4px;
+  font-size: 0.86rem; color: var(--ink-soft);
+}
+.dc-foot strong { font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
 .dc-reward { margin: 0; font-size: 0.92rem; color: var(--ink-soft); }
 .dc-progress {
   margin: 0 0 10px; font-size: 0.88rem; font-weight: 600; color: var(--accent);
@@ -862,3 +902,35 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 .g-logo-btn { background: #fff; border-radius: 50%; padding: 2px; width: 20px; height: 20px; vertical-align: -5px; margin-right: 8px; }
 .g-list cite, .g-mini cite { display: inline-flex; align-items: center; gap: 2px; }
 .g-list cite .g-logo { vertical-align: 0; }
+
+
+/* —— v9 stamp cards FID —— */
+.club-view .sec-lead { max-width: 36em; }
+.admin-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0 4px;
+}
+.admin-stat {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, #fff 55%, var(--paper));
+  padding: 14px 12px; text-align: center;
+}
+.admin-stat b { display: block; font-size: 1.6rem; line-height: 1.1; }
+.admin-stat span { font-size: 0.78rem; color: var(--muted); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.badge-premio {
+  display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: .06em;
+  background: var(--ink); color: var(--paper); padding: 3px 7px;
+}
+.badge-prog {
+  display: inline-block; font-size: 0.75rem; font-weight: 700;
+  border: 1px solid var(--line); padding: 3px 7px; color: var(--ink-soft);
+}
+.mail-preview {
+  border: 1px solid var(--line); background: #fff; padding: 12px; margin-top: 10px;
+  font-size: 0.9rem; color: var(--ink);
+}
+.mail-preview .meta-line {
+  background: color-mix(in srgb, var(--paper-deep) 55%, #fff);
+  padding: 10px 12px; margin-bottom: 12px; font-size: 0.82rem; line-height: 1.5;
+}
+.search-row { display: flex; gap: 8px; margin: 10px 0; }
+.search-row input { flex: 1; }

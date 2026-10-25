@@ -3,22 +3,30 @@
   var sb = window.supabase.createClient(cfg.url, cfg.anonKey);
   var KEY = "lof_admin_pass";
   var pass = sessionStorage.getItem(KEY) || "";
+  var settings = { meta: 8, premio: "1 café de especialidad", correo: "" };
 
   var screens = {
     login: document.getElementById("screen-login"),
     home: document.getElementById("screen-home"),
     stamp: document.getElementById("screen-stamp"),
-    coupons: document.getElementById("screen-coupons"),
-    redeem: document.getElementById("screen-redeem")
+    nuevo: document.getElementById("screen-nuevo"),
+    clientes: document.getElementById("screen-clientes"),
+    ajustes: document.getElementById("screen-ajustes")
   };
 
-  function go(name) {
+  function go(name, prefillRut) {
     Object.keys(screens).forEach(function (k) {
       screens[k].classList.toggle("is-on", k === name);
     });
     document.getElementById("btn-logout").hidden = name === "login";
-    if (name === "home") loadRecent();
-    if (name === "coupons") loadCoupons();
+    document.getElementById("correo-box").hidden = true;
+    document.getElementById("correo-box").innerHTML = "";
+    if (name === "home") loadHome();
+    if (name === "clientes") loadClientes();
+    if (name === "ajustes") loadAjustes();
+    if (name === "stamp" && prefillRut) {
+      document.getElementById("stamp-rut").value = prefillRut;
+    }
   }
 
   function setStatus(id, text, ok) {
@@ -34,9 +42,15 @@
     return res.data;
   }
 
-  function esc(s) {
-    return String(s || "").replace(/[&<>"]/g, function (c) {
-      return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c];
+  function esc(s) { return window.LofStampCard.esc(s); }
+
+  function cardFor(member, meta, premio) {
+    return window.LofStampCard.cardHTML({
+      name: member.name,
+      rutFmt: window.LofRut.format(member.rut) || member.rut,
+      stickers: member.stickers,
+      meta: meta || settings.meta,
+      premio: premio || settings.premio
     });
   }
 
@@ -45,7 +59,7 @@
     var p = new FormData(e.target).get("pass");
     setStatus("login-status", "Comprobando…");
     try {
-      await rpc("admin_recent_members", { p_pass: p, p_limit: 1 });
+      await rpc("admin_stats", { p_pass: p });
       pass = String(p);
       sessionStorage.setItem(KEY, pass);
       setStatus("login-status", "");
@@ -70,88 +84,71 @@
     p.hidden = !p.hidden;
   });
 
-  async function loadRecent() {
-    var box = document.getElementById("recent-list");
+  async function loadHome() {
+    var box = document.getElementById("home-stats");
     box.innerHTML = '<p class="muted">Cargando…</p>';
     try {
-      var rows = await rpc("admin_recent_members", { p_pass: pass, p_limit: 12 });
-      if (!rows || !rows.length) {
-        box.innerHTML = '<p class="muted">Aún no hay socios.</p>';
-        return;
-      }
-      box.innerHTML = rows.map(function (m) {
-        return '<div class="admin-card"><h3>' + esc(m.name) + '</h3><p>' + esc(window.LofRut.format(m.rut) || m.rut) +
-          (m.phone ? " · " + esc(m.phone) : "") + "</p></div>";
-      }).join("");
+      var s = await rpc("admin_stats", { p_pass: pass });
+      settings.meta = s.meta;
+      settings.premio = s.premio;
+      document.getElementById("home-lead").innerHTML =
+        "Cada visita = 1 sello. Al llegar a <b>" + esc(s.meta) + "</b>: <b>" + esc(s.premio) + "</b>.";
+      box.innerHTML =
+        '<div class="admin-stat"><b>' + (s.clientes || 0) + '</b><span>clientes</span></div>' +
+        '<div class="admin-stat"><b>' + (s.premio_listo || 0) + '</b><span>premio listo</span></div>';
     } catch (e) {
       box.innerHTML = '<p class="muted">No se pudo cargar.</p>';
-      if (String(e.message || e).indexOf("unauthorized") >= 0 || (e.code === "42501")) {
-        go("login");
-      }
+      if (String(e.message || e).indexOf("unauthorized") >= 0 || e.code === "42501") go("login");
     }
   }
 
-  document.getElementById("form-lookup").addEventListener("submit", async function (e) {
+  document.getElementById("form-stamp").addEventListener("submit", async function (e) {
     e.preventDefault();
     var rut = String(new FormData(e.target).get("rut") || "");
     setStatus("stamp-status", "");
+    var box = document.getElementById("stamp-result");
+    box.innerHTML = "";
     if (!window.LofRut.validate(rut)) {
       setStatus("stamp-status", "RUT inválido.");
       return;
     }
-    var box = document.getElementById("stamp-result");
-    box.innerHTML = '<p class="muted">Buscando…</p>';
-    try {
-      var data = await rpc("admin_lookup_member", { p_pass: pass, p_rut: window.LofRut.normalize(rut) });
-      if (!data.found) {
-        box.innerHTML = '<div class="admin-card"><p>No hay socio con ese RUT. Pídele que se registre en Club.</p></div>';
-        return;
-      }
-      var m = data.member;
-      var cards = data.cards || [];
-      var html = '<div class="admin-card"><h3>' + esc(m.name) + '</h3><p>' + esc(window.LofRut.format(m.rut) || m.rut) + "</p></div>";
-      cards.forEach(function (c) {
-        html += '<div class="admin-card" data-mc="' + esc(c.member_card_id) + '" data-cc="' + esc(c.coupon_card_id) + '">';
-        html += "<h3>" + esc(c.title) + "</h3>";
-        html += "<p>" + c.stamps + " / " + c.stamps_required + " sellos · Canjes: " + (c.redeemed_count || 0) + "</p>";
-        html += '<div class="admin-row">';
-        html += '<button type="button" class="btn btn-primary" data-add-stamp data-rut="' + esc(m.rut) + '" data-cc="' + esc(c.coupon_card_id) + '">+1 sello</button>';
-        html += "</div></div>";
-      });
-      if (!cards.length) {
-        html += '<div class="admin-card"><p>Sin cupones activos. Crea uno en Cupones.</p>';
-        html += '<div class="admin-row"><button type="button" class="btn btn-primary" data-add-stamp data-rut="' + esc(m.rut) + '">+1 sello (cupón activo)</button></div></div>';
-      }
-      box.innerHTML = html;
-    } catch (err) {
-      setStatus("stamp-status", "Error al buscar.");
-      box.innerHTML = "";
-    }
-  });
-
-  document.getElementById("stamp-result").addEventListener("click", async function (e) {
-    var btn = e.target.closest("[data-add-stamp]");
-    if (!btn) return;
-    if (!confirm("¿Sumar 1 sello a este socio?")) return;
+    var btn = e.target.querySelector('[type="submit"]');
     btn.disabled = true;
     setStatus("stamp-status", "Guardando…");
     try {
-      var args = {
+      var data = await rpc("admin_add_stamp", {
         p_pass: pass,
-        p_rut: btn.getAttribute("data-rut"),
+        p_rut: window.LofRut.normalize(rut),
         p_delta: 1,
         p_note: "sello admin"
-      };
-      var cc = btn.getAttribute("data-cc");
-      if (cc) args.p_coupon_card_id = cc;
-      var data = await rpc("admin_add_stamp", args);
+      });
       if (!data.ok) {
-        setStatus("stamp-status", "No se pudo: " + (data.error || ""));
+        if (data.error === "member_not_found") {
+          setStatus("stamp-status", "No hay cliente con ese RUT. Regístralo en Nuevo cliente.");
+        } else if (data.error === "already_full") {
+          setStatus("stamp-status", "Ya completó la tarjeta. Entrégalo en Ver clientes.");
+          box.innerHTML = cardFor(data.member, data.meta, data.premio) +
+            '<div class="admin-row"><button type="button" class="btn btn-ghost" data-go="clientes">Ir a entregar premio</button></div>';
+        } else if (data.error === "too_soon") {
+          setStatus("stamp-status", "Muy seguido. Espera unos " + (data.retry_after_minutes || 45) + " min.");
+          if (data.member) box.innerHTML = cardFor(data.member, data.meta, settings.premio);
+        } else {
+          setStatus("stamp-status", "No se pudo: " + (data.error || ""));
+        }
         return;
       }
-      setStatus("stamp-status", "Sello registrado: " + data.card.stamps + "/" + data.card.stamps_required, true);
-      // refresh by re-submit
-      document.getElementById("form-lookup").requestSubmit();
+      var faltan = Math.max(0, (data.meta || 8) - (data.member.stickers || 0));
+      setStatus(
+        "stamp-status",
+        faltan <= 0
+          ? "Listo. " + data.member.name + " completó la tarjeta."
+          : "Listo. " + data.member.name + ": " + data.member.stickers + "/" + data.meta + ". Faltan " + faltan + ".",
+        true
+      );
+      box.innerHTML = cardFor(data.member, data.meta, data.premio) +
+        (faltan <= 0
+          ? '<div class="admin-row"><button type="button" class="btn btn-primary" data-go="clientes">Ir a entregar premio</button></div>'
+          : "");
     } catch (err) {
       setStatus("stamp-status", "Error al guardar sello.");
     } finally {
@@ -159,151 +156,197 @@
     }
   });
 
-  async function loadCoupons() {
-    var box = document.getElementById("coupon-list");
+  document.getElementById("form-nuevo").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var fd = new FormData(e.target);
+    var rut = String(fd.get("rut") || "");
+    var name = String(fd.get("name") || "").trim();
+    setStatus("nuevo-status", "");
+    document.getElementById("nuevo-result").innerHTML = "";
+    if (!name) { setStatus("nuevo-status", "Escribe el nombre."); return; }
+    if (!window.LofRut.validate(rut)) { setStatus("nuevo-status", "RUT inválido."); return; }
+    var btn = e.target.querySelector('[type="submit"]');
+    btn.disabled = true;
+    try {
+      var data = await rpc("admin_create_member", {
+        p_pass: pass,
+        p_name: name,
+        p_rut: window.LofRut.normalize(rut),
+        p_email: String(fd.get("email") || "").trim() || null,
+        p_phone: String(fd.get("phone") || "").trim() || null,
+        p_first_stamp: !!fd.get("first_stamp")
+      });
+      if (!data.ok) {
+        setStatus("nuevo-status", data.error === "already_registered"
+          ? "Ya está registrado. Usa Sumar sello."
+          : "No se pudo registrar.");
+        return;
+      }
+      var m = data.member;
+      setStatus("nuevo-status", m.name + " registrado.", true);
+      document.getElementById("nuevo-result").innerHTML = cardFor(m, data.meta, data.premio);
+      e.target.reset();
+      e.target.first_stamp.checked = true;
+    } catch (err) {
+      setStatus("nuevo-status", "Error al registrar.");
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  async function loadClientes(q) {
+    var box = document.getElementById("clientes-list");
     box.innerHTML = '<p class="muted">Cargando…</p>';
     try {
-      var rows = await rpc("admin_list_coupons", { p_pass: pass });
-      if (!rows || !rows.length) {
-        box.innerHTML = '<p class="muted">No hay cupones.</p>';
+      var data = await rpc("admin_list_clientes", { p_pass: pass, p_q: q || "" });
+      settings.meta = data.meta;
+      settings.premio = data.premio;
+      var rows = data.clientes || [];
+      if (!rows.length) {
+        box.innerHTML = '<div class="admin-card"><p>Sin clientes. Usa «Nuevo cliente».</p></div>';
         return;
       }
       box.innerHTML = rows.map(function (c) {
-        return '<div class="admin-card" data-coupon-id="' + esc(c.id) + '">' +
-          "<h3>" + esc(c.title) + (c.active ? "" : " (inactivo)") + "</h3>" +
-          "<p>" + c.stamps_required + " sellos → " + esc(c.reward) + "</p>" +
-          '<div class="switch-row"><span class="muted">Activo</span>' +
-          '<button type="button" class="btn btn-ghost" data-toggle-active data-id="' + esc(c.id) + '" data-active="' + (c.active ? "1" : "0") + '">' +
-          (c.active ? "Desactivar" : "Activar") + "</button></div>" +
-          '<div class="admin-row">' +
-          '<button type="button" class="btn btn-ghost" data-edit-coupon data-id="' + esc(c.id) + '" data-title="' + esc(c.title) + '" data-desc="' + esc(c.description || "") + '" data-req="' + c.stamps_required + '" data-reward="' + esc(c.reward) + '">Editar</button>' +
-          "</div></div>";
+        var ready = c.stickers >= data.meta;
+        var faltan = Math.max(0, data.meta - c.stickers);
+        var actions = ready
+          ? '<button type="button" class="btn btn-warn" data-canje="' + esc(c.rut) + '">Entregar premio</button>'
+          : '<button type="button" class="btn btn-primary" data-sumar="' + esc(c.rut) + '">Sumar sello</button>' +
+            (c.email
+              ? '<button type="button" class="btn btn-ghost" data-correo="' + esc(c.rut) + '">Recordatorio' +
+                (faltan ? " · faltan " + faltan : "") + "</button>"
+              : "");
+        return '<div class="admin-card" data-rut="' + esc(c.rut) + '">' +
+          '<div class="cliente-head"><div><h3>' + esc(c.name) + "</h3>" +
+          "<p>" + esc(window.LofRut.format(c.rut) || c.rut) +
+          (c.email ? " · " + esc(c.email) : "") + "</p></div>" +
+          (ready
+            ? '<span class="badge-premio">PREMIO</span>'
+            : '<span class="badge-prog">' + c.stickers + "/" + data.meta + "</span>") +
+          "</div>" +
+          window.LofStampCard.stampsHTML(c.stickers, data.meta) +
+          '<div class="admin-row">' + actions + "</div></div>";
       }).join("");
     } catch (e) {
       box.innerHTML = '<p class="muted">No se pudo cargar.</p>';
     }
   }
 
-  document.getElementById("coupon-list").addEventListener("click", async function (e) {
-    var t = e.target.closest("[data-toggle-active]");
-    if (t) {
-      var id = t.getAttribute("data-id");
-      var next = t.getAttribute("data-active") !== "1";
-      if (!confirm(next ? "¿Activar este cupón?" : "¿Desactivar este cupón?")) return;
+  document.getElementById("form-search").addEventListener("submit", function (e) {
+    e.preventDefault();
+    loadClientes(String(new FormData(e.target).get("q") || ""));
+  });
+
+  document.getElementById("clientes-list").addEventListener("click", async function (e) {
+    var canje = e.target.closest("[data-canje]");
+    if (canje) {
+      if (!confirm("¿Entregaste el premio? La tarjeta vuelve a 0 sellos.")) return;
+      canje.disabled = true;
       try {
-        await rpc("admin_upsert_coupon", { p_pass: pass, p_id: id, p_active: next });
-        loadCoupons();
+        var data = await rpc("admin_entregar_premio", { p_pass: pass, p_rut: canje.getAttribute("data-canje") });
+        if (!data.ok) {
+          alert("No se pudo: " + (data.error || ""));
+          return;
+        }
+        loadClientes(document.getElementById("clientes-q").value);
       } catch (err) {
-        setStatus("coupon-status", "No se pudo cambiar.");
+        alert("Error al entregar premio.");
+      } finally {
+        canje.disabled = false;
       }
       return;
     }
-    var ed = e.target.closest("[data-edit-coupon]");
-    if (ed) {
-      var title = prompt("Título", ed.getAttribute("data-title"));
-      if (title === null) return;
-      var reward = prompt("Premio", ed.getAttribute("data-reward"));
-      if (reward === null) return;
-      var req = prompt("Sellos necesarios", ed.getAttribute("data-req"));
-      if (req === null) return;
-      try {
-        await rpc("admin_upsert_coupon", {
-          p_pass: pass,
-          p_id: ed.getAttribute("data-id"),
-          p_title: title,
-          p_reward: reward,
-          p_stamps_required: parseInt(req, 10) || 8,
-          p_description: ed.getAttribute("data-desc") || ""
-        });
-        setStatus("coupon-status", "Cupón actualizado.", true);
-        loadCoupons();
-      } catch (err) {
-        setStatus("coupon-status", "No se pudo editar.");
-      }
+    var sumar = e.target.closest("[data-sumar]");
+    if (sumar) {
+      go("stamp", window.LofRut.format(sumar.getAttribute("data-sumar")) || sumar.getAttribute("data-sumar"));
+      return;
+    }
+    var correo = e.target.closest("[data-correo]");
+    if (correo) {
+      showCorreo(correo.getAttribute("data-correo"));
     }
   });
 
-  document.getElementById("form-coupon").addEventListener("submit", async function (e) {
+  // buttons inside stamp-result that use data-go
+  document.getElementById("stamp-result").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-go]");
+    if (b) go(b.getAttribute("data-go"));
+  });
+
+  async function showCorreo(rut) {
+    var box = document.getElementById("correo-box");
+    box.hidden = false;
+    box.innerHTML = '<p class="muted">Armando correo…</p>';
+    try {
+      var data = await rpc("admin_lookup_member", { p_pass: pass, p_rut: rut });
+      if (!data.found) { box.innerHTML = '<p class="muted">Cliente no encontrado.</p>'; return; }
+      var st = await rpc("admin_get_settings", { p_pass: pass });
+      settings = { meta: st.meta, premio: st.premio, correo: st.correo || "" };
+      var m = data.member;
+      var faltan = Math.max(0, settings.meta - (m.stickers || 0));
+      var nom = (m.name || "").split(" ")[0];
+      if (!m.email) {
+        box.innerHTML = '<div class="admin-card"><p>Este cliente no tiene correo. Agrégalo al registrar o pide uno.</p></div>';
+        return;
+      }
+      box.innerHTML =
+        '<div class="mail-preview">' +
+        '<div class="meta-line"><b>De:</b> Lof Espresso &lt;' + esc(settings.correo || "(pon tu correo en Ajustes)") + "&gt;<br>" +
+        "<b>Para:</b> " + esc(m.email) + "<br>" +
+        "<b>Asunto:</b> " + esc(nom) + ", te faltan " + faltan + " sellos</div>" +
+        "<p>Hola " + esc(nom) + ",</p>" +
+        "<p>En Club Lof llevas <b>" + (m.stickers || 0) + " de " + settings.meta + "</b>. " +
+        "Te faltan <b>" + faltan + "</b> para " + esc(String(settings.premio).toLowerCase()) + ".</p>" +
+        window.LofStampCard.stampsHTML(m.stickers, settings.meta) +
+        "<p>Te esperamos en Paseo Estado 498, Rancagua.</p>" +
+        '<button type="button" class="btn btn-primary btn-block" id="btn-sim-send">Enviar recordatorio (simulado)</button>' +
+        '<p class="status-bar" id="correo-status"></p></div>';
+      document.getElementById("btn-sim-send").addEventListener("click", function () {
+        this.outerHTML = '<div class="status-bar ok">Envío simulado (demo). No se usó Resend.</div>';
+      });
+      box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    } catch (err) {
+      box.innerHTML = '<p class="muted">No se pudo armar el correo.</p>';
+    }
+  }
+
+  async function loadAjustes() {
+    setStatus("ajustes-status", "");
+    try {
+      var st = await rpc("admin_get_settings", { p_pass: pass });
+      settings = { meta: st.meta, premio: st.premio, correo: st.correo || "" };
+      document.getElementById("aj-correo").value = settings.correo;
+      document.getElementById("aj-meta").value = settings.meta;
+      document.getElementById("aj-premio").value = settings.premio;
+    } catch (e) {
+      setStatus("ajustes-status", "No se pudo cargar.");
+    }
+  }
+
+  document.getElementById("form-ajustes").addEventListener("submit", async function (e) {
     e.preventDefault();
     var fd = new FormData(e.target);
-    setStatus("coupon-status", "Creando…");
+    setStatus("ajustes-status", "Guardando…");
     try {
-      var data = await rpc("admin_upsert_coupon", {
+      var data = await rpc("admin_save_settings", {
         p_pass: pass,
-        p_title: String(fd.get("title") || ""),
-        p_description: String(fd.get("description") || ""),
-        p_stamps_required: parseInt(fd.get("stamps_required"), 10) || 8,
-        p_reward: String(fd.get("reward") || ""),
-        p_active: true
+        p_meta: parseInt(fd.get("meta"), 10) || 8,
+        p_premio: String(fd.get("premio") || "").trim(),
+        p_correo: String(fd.get("correo") || "").trim()
       });
-      if (!data.ok) { setStatus("coupon-status", "No se pudo crear."); return; }
-      setStatus("coupon-status", "Cupón creado.", true);
-      e.target.reset();
-      e.target.stamps_required.value = 8;
-      loadCoupons();
-    } catch (err) {
-      setStatus("coupon-status", "Error al crear.");
-    }
-  });
-
-  document.getElementById("form-redeem-lookup").addEventListener("submit", async function (e) {
-    e.preventDefault();
-    var rut = String(new FormData(e.target).get("rut") || "");
-    setStatus("redeem-status", "");
-    if (!window.LofRut.validate(rut)) {
-      setStatus("redeem-status", "RUT inválido.");
-      return;
-    }
-    var box = document.getElementById("redeem-result");
-    box.innerHTML = '<p class="muted">Buscando…</p>';
-    try {
-      var data = await rpc("admin_lookup_member", { p_pass: pass, p_rut: window.LofRut.normalize(rut) });
-      if (!data.found) {
-        box.innerHTML = '<div class="admin-card"><p>Socio no encontrado.</p></div>';
-        return;
-      }
-      var html = '<div class="admin-card"><h3>' + esc(data.member.name) + '</h3><p>' + esc(window.LofRut.format(data.member.rut) || data.member.rut) + "</p></div>";
-      (data.cards || []).forEach(function (c) {
-        var ready = c.stamps >= c.stamps_required;
-        html += '<div class="admin-card">';
-        html += "<h3>" + esc(c.title) + "</h3>";
-        html += "<p>" + c.stamps + " / " + c.stamps_required + " · Premio: " + esc(c.reward) + "</p>";
-        if (ready) {
-          html += '<div class="admin-row"><button type="button" class="btn btn-primary" data-redeem="' + esc(c.member_card_id) + '">Canjear ahora</button></div>';
-        } else {
-          html += '<p class="muted">Aún faltan sellos.</p>';
-        }
-        html += "</div>";
-      });
-      box.innerHTML = html;
-    } catch (err) {
-      setStatus("redeem-status", "Error al buscar.");
-      box.innerHTML = "";
-    }
-  });
-
-  document.getElementById("redeem-result").addEventListener("click", async function (e) {
-    var btn = e.target.closest("[data-redeem]");
-    if (!btn) return;
-    if (!confirm("¿Confirmar canje? Se descontarán los sellos del premio.")) return;
-    btn.disabled = true;
-    try {
-      var data = await rpc("admin_redeem", { p_pass: pass, p_member_card_id: btn.getAttribute("data-redeem") });
       if (!data.ok) {
-        setStatus("redeem-status", "No se pudo canjear: " + (data.error || ""));
+        setStatus("ajustes-status", data.error === "correo_invalid" ? "Correo inválido." : "No se pudo guardar.");
         return;
       }
-      setStatus("redeem-status", "Canje OK. Quedan " + data.card.stamps + " sellos.", true);
-      document.getElementById("form-redeem-lookup").requestSubmit();
+      settings = { meta: data.meta, premio: data.premio, correo: data.correo || "" };
+      setStatus("ajustes-status", "Guardado.", true);
     } catch (err) {
-      setStatus("redeem-status", "Error al canjear.");
-    } finally {
-      btn.disabled = false;
+      setStatus("ajustes-status", "Error al guardar.");
     }
   });
 
   if (pass) {
-    rpc("admin_recent_members", { p_pass: pass, p_limit: 1 })
+    rpc("admin_stats", { p_pass: pass })
       .then(function () { go("home"); })
       .catch(function () { sessionStorage.removeItem(KEY); pass = ""; go("login"); });
   } else {

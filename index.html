@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/styles.css?v=8">
+<link rel="stylesheet" href="/css/styles.css?v=9">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -609,7 +609,7 @@
     <section class="club-view" aria-labelledby="club-title">
       <div class="wrap">
         <h2 id="club-title" class="sec-title">Club Lof</h2>
-        <p class="sec-lead">Junta sellos y canjea. Te registras con tu RUT chileno; en el local te sumamos sellos.</p>
+        <p class="sec-lead">Junta 8 sellos y te regalan 1 café de especialidad. Te registras con tu RUT; en el local te sumamos sellos.</p>
 
         <div class="club-tabs" role="tablist" aria-label="Club">
           <button type="button" class="is-on" data-club-tab="lookup">Ya soy socio</button>
@@ -630,6 +630,9 @@
           </label>
           <label>RUT
             <input name="rut" inputmode="text" autocomplete="off" placeholder="12.345.678-5" required>
+          </label>
+          <label>Correo <span class="opt">(opcional)</span>
+            <input name="email" type="email" autocomplete="email" placeholder="para avisarte">
           </label>
           <label>WhatsApp <span class="opt">(opcional)</span>
             <input name="phone" type="tel" autocomplete="tel" placeholder="+56 9 …" inputmode="tel">
@@ -731,8 +734,9 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js" defer></script>
-<script src="/js/supabase-config.js?v=5" defer></script>
-<script src="/js/rut.js?v=5" defer></script>
-<script src="/js/main.js?v=5" defer></script>
+<script src="/js/supabase-config.js?v=9" defer></script>
+<script src="/js/rut.js?v=9" defer></script>
+<script src="/js/stamp-card.js?v=9" defer></script>
+<script src="/js/main.js?v=9" defer></script>
 </body>
 </html>
