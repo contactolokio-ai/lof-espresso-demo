@@ -711,20 +711,35 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }
 .form-msg.ok { color: var(--wa); background: #e7f2eb; border-color: #b7d4c3; }
 
+
 .digital-card {
+  position: relative;
   border: 1px solid var(--line);
-  background: color-mix(in srgb, #fff 55%, var(--paper));
-  padding: 18px 16px;
-  margin-top: 8px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, #fff 70%, var(--paper)), var(--paper));
+  padding: 18px 16px 16px;
+  margin-top: 10px;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(42, 42, 42, 0.08);
+  overflow: hidden;
 }
 .digital-card + .digital-card { margin-top: 12px; }
-.digital-card h3 { margin: 0 0 4px; font-size: 1.1rem; }
-.digital-card .dc-meta { margin: 0 0 14px; color: var(--muted); font-size: 0.88rem; }
+.digital-card .dc-band {
+  position: absolute; left: 0; right: 0; top: 0; height: 5px;
+  background: linear-gradient(90deg, var(--ink), color-mix(in srgb, var(--accent) 70%, var(--ink)));
+}
+.digital-card h3 { margin: 0 0 2px; font-size: 1.15rem; }
+.digital-card .dc-brand {
+  margin: 0 0 6px;
+  font-size: 0.95rem; font-weight: 700; letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.digital-card .dc-meta { margin: 0 0 12px; color: var(--muted); font-size: 0.88rem; }
 .stamps {
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  gap: 6px;
-  margin: 12px 0;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  margin: 14px 0 12px;
   width: 100%;
   max-width: 100%;
   min-width: 0;
@@ -734,10 +749,21 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  border: 1.5px dashed var(--line);
+  border: 1.5px dashed color-mix(in srgb, var(--ink) 28%, var(--line));
   border-radius: 50%;
-  background: color-mix(in srgb, #fff 40%, var(--paper));
-  transition: background .2s, border-color .2s, box-shadow .2s;
+  background: color-mix(in srgb, #fff 55%, var(--paper));
+  display: grid;
+  place-items: center;
+  transition: background .2s, border-color .2s, box-shadow .2s, color .2s;
+}
+.stamp-n {
+  font-size: clamp(0.55rem, 2.6vw, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--ink) 45%, transparent);
+  line-height: 1;
+  text-align: center;
+  padding: 0 2px;
 }
 .stamp.on {
   background: var(--ink);
@@ -745,42 +771,56 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
   border-color: var(--ink);
   box-shadow: inset 0 0 0 3px var(--paper);
 }
+.stamp.on .stamp-n { color: var(--paper); }
 .stamp.prize-slot {
-  border-color: color-mix(in srgb, var(--accent) 70%, var(--ink));
-  background: color-mix(in srgb, var(--accent) 12%, var(--paper));
+  border-color: color-mix(in srgb, var(--accent) 75%, var(--ink));
+  border-style: solid;
+  background: color-mix(in srgb, var(--accent) 14%, var(--paper));
+}
+.stamp.prize-slot .stamp-n {
+  font-size: clamp(0.42rem, 2.1vw, 0.58rem);
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--accent) 55%, var(--ink));
 }
 .stamp.prize-slot.on {
   background: var(--accent);
   border-color: var(--accent);
   box-shadow: inset 0 0 0 3px var(--paper);
 }
+.stamp.prize-slot.on .stamp-n { color: #fff; font-size: clamp(0.7rem, 3vw, 0.9rem); }
 .dc-top {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 8px; margin-bottom: 8px;
+  gap: 8px; margin-bottom: 6px;
 }
 .dc-label {
-  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--muted);
 }
 .dc-prize-tag {
-  font-size: 0.78rem; font-weight: 600; color: var(--ink-soft);
-  text-align: right; max-width: 60%;
+  font-size: 0.78rem; font-weight: 700; color: var(--ink-soft);
+  text-align: right; max-width: 62%;
 }
 .dc-badge {
   font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em;
   background: var(--ink); color: var(--paper);
   padding: 4px 8px; border-radius: 2px;
 }
-.digital-card.is-ready { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+.digital-card.is-ready { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink), 0 8px 24px rgba(42,42,42,0.1); }
+.digital-card.is-demo { margin-bottom: 14px; }
 .dc-foot {
   display: flex; justify-content: space-between; align-items: flex-start;
-  gap: 10px; margin-top: 4px;
+  gap: 10px; margin-top: 6px;
   font-size: 0.86rem; color: var(--ink-soft);
 }
 .dc-foot strong { font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
-.dc-reward { margin: 0; font-size: 0.92rem; color: var(--ink-soft); }
+.dc-reward { margin: 0 0 4px; font-size: 0.92rem; color: var(--ink-soft); }
+.dc-reward strong { color: var(--ink); }
 .dc-progress {
   margin: 0 0 10px; font-size: 0.88rem; font-weight: 600; color: var(--accent);
+}
+.club-teaser-card .digital-card { margin-top: 14px; }
+.club-teaser-card .teaser-note {
+  margin: 10px 0 0; font-size: 0.88rem; color: var(--ink-soft);
 }
 
 .social-row { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }

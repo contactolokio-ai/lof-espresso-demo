@@ -147,6 +147,18 @@
     });
   });
 
+  /* —— Demo card on home teaser —— */
+  (function () {
+    var box = document.querySelector("[data-teaser-card]");
+    if (!box || !window.LofStampCard) return;
+    box.innerHTML = window.LofStampCard.cardHTML({
+      demo: true,
+      stickers: 3,
+      meta: window.LofStampCard.DEFAULT_META || 7,
+      premio: window.LofStampCard.DEFAULT_PREMIO || "1 café gratis"
+    });
+  })();
+
   /* —— Tarjeta de sellos —— */
   var clubTabs = document.querySelectorAll("[data-club-tab]");
   var forms = {

@@ -3,7 +3,7 @@
   var sb = window.supabase.createClient(cfg.url, cfg.anonKey);
   var KEY = "lof_admin_pass";
   var pass = sessionStorage.getItem(KEY) || "";
-  var settings = { meta: 8, premio: "1 café de especialidad", correo: "" };
+  var settings = { meta: 7, premio: "1 café gratis", correo: "" };
 
   var screens = {
     login: document.getElementById("screen-login"),
