@@ -190,7 +190,7 @@
   function renderCards(member, cards, meta, premio) {
     if (!cardArea) return;
     var m = typeof meta === "number" ? meta : (cards && cards[0] && cards[0].stamps_required) || 8;
-    var pr = premio || (cards && cards[0] && cards[0].reward) || "1 café de especialidad";
+    var pr = premio || (cards && cards[0] && cards[0].reward) || "1 café gratis";
     var stickers = typeof member.stickers === "number"
       ? member.stickers
       : (cards && cards[0] ? cards[0].stamps : 0);
