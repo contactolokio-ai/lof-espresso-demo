@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/styles.css?v=14">
+<link rel="stylesheet" href="/css/styles.css?v=15">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -65,7 +65,7 @@
       <span>Estado 498 · Rancagua</span>
     </span>
   </a>
-  <a class="header-wa" href="https://wa.me/56991872960" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <a class="header-wa" href="https://wa.me/56991872960" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 </header>
@@ -81,11 +81,10 @@
       <div class="hero-inner">
         <img class="hero-logo" src="/assets/logo-lof-espresso.jpg" width="72" height="72" alt="">
         <h1>Lof Espresso</h1>
-        <p class="what">Café de especialidad en el corazón de Rancagua</p>
-        <p class="tag">La comunidad del espresso</p>
+        <p class="what">Café de especialidad en Paseo Estado 498, Rancagua</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#/carta" data-nav="carta">Ver carta</a>
-          <a class="btn btn-ghost-light" href="#/sellos" data-nav="sellos">Tarjeta de sellos</a>
+          <a class="btn btn-ghost-light" href="#/sellos" data-nav="sellos">Mi tarjeta de sellos</a>
         </div>
       </div>
     </section>
@@ -93,17 +92,17 @@
     <section class="strip-hours" aria-label="Horario">
       <div class="wrap strip-hours-inner">
         <div>
-          <strong>Hoy en el local</strong>
+          <strong>Horario</strong>
           <span>Lun–Vie 7:30–20:00 · Sáb 9:30–19:00 · Dom cerrado</span>
         </div>
-        <span class="pill-take">Take away desde 7:30</span>
+        <a class="pill-take" href="#/local" data-nav="local">Cómo llegar</a>
       </div>
     </section>
 
     <section class="fotos" aria-labelledby="fotos-title">
       <div class="wrap">
         <h2 id="fotos-title" class="sec-title">De la carta</h2>
-        <p class="sec-lead">Toca un plato o desliza. En la carta tienes precios y detalle.</p>
+        <p class="sec-lead">Fotos de la carta. Precios y detalle en Carta.</p>
       </div>
       <div class="foto-strip" role="list">
         <figure class="foto-card" role="listitem" data-jump="comida">
@@ -133,9 +132,9 @@
       <div class="wrap">
         <div class="club-teaser-card">
           <h2 id="club-teaser-title">Tarjeta de sellos</h2>
-          <p>Junta 7 sellos y el 7.º es un café gratis. Sin app: con tu RUT la ves acá.</p>
+          <p>Con tu RUT juntas sellos en el local. El 7.º café es gratis.</p>
+          <p class="teaser-ejemplo-label">Ejemplo</p>
           <div data-teaser-card></div>
-          <p class="teaser-note">Así se ve la tarjeta. En el local te van sumando sellos.</p>
           <a class="btn btn-primary" href="#/sellos" data-nav="sellos">Ver mi tarjeta</a>
         </div>
       </div>
@@ -144,22 +143,12 @@
     <section id="ubicacion" aria-labelledby="ubi-title">
       <div class="wrap">
         <h2 id="ubi-title" class="sec-title">El local</h2>
-        <div class="place-card">
+        <div class="place-card place-card--compact">
           <h3>Paseo Estado 498, Rancagua</h3>
-          <p class="addr-note">Esquina O'Carrol</p>
-          <p>Café de especialidad, pastelería y helado artesanal. Para quedarse o llevar.</p>
-          <div class="hours">
-            <strong>Horario</strong><br>
-            Lun–Vie 7:30–20:00 · Sáb 9:30–19:00 · Dom cerrado
-            <span class="hours-note">Take away desde las 7:30</span>
-          </div>
-          <div class="map-embed">
-            <iframe title="Lof Espresso en Google Maps" src="https://www.google.com/maps?q=Lof+Espresso+Caf%C3%A9,+Paseo+Estado+498,+Rancagua&amp;hl=es-CL&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-          </div>
+          <p class="addr-note">Esquina O'Carrol · Take away desde 7:30</p>
           <div class="place-actions">
-            <a class="btn btn-primary" href="https://maps.app.goo.gl/UZu9bESa6kadMU8VA" target="_blank" rel="noopener">Cómo llegar</a>
-            <a class="btn btn-ghost" href="https://www.instagram.com/lof_espresso/" target="_blank" rel="noopener">Instagram</a>
-            <a class="btn btn-ghost" href="https://www.tiktok.com/@lof_espresso_cafeteria" target="_blank" rel="noopener">TikTok</a>
+            <a class="btn btn-primary" href="#/local" data-nav="local">Ver mapa y horario</a>
+            <a class="btn btn-wa" href="https://wa.me/56991872960" target="_blank" rel="noopener">WhatsApp</a>
           </div>
         </div>
       </div>
@@ -190,20 +179,22 @@
     <section class="carta-view" aria-labelledby="carta-title">
       <div class="wrap carta-head">
         <h2 id="carta-title" class="sec-title">Carta</h2>
-        <p class="sec-lead">Carta 2026 · Precios en pesos chilenos. Toca un ítem para ver el detalle.</p>
+        <p class="sec-lead">Precios en pesos. Toca un ítem para ver más.</p>
       </div>
-      <div class="carta-chips" data-carta-chips role="tablist" aria-label="Categorías">
-        <button type="button" data-chip="cafe" aria-selected="true">Café</button>
-        <button type="button" data-chip="frios" aria-selected="false">Fríos</button>
-        <button type="button" data-chip="comida" aria-selected="false">Comida</button>
-        <button type="button" data-chip="pasteleria" aria-selected="false">Pastelería</button>
-        <button type="button" data-chip="helado" aria-selected="false">Helado</button>
+      <div class="carta-chips-wrap">
+        <div class="carta-chips" data-carta-chips role="tablist" aria-label="Categorías de la carta">
+          <button type="button" role="tab" id="chip-cafe" data-chip="cafe" aria-selected="true" aria-controls="sec-cafe">Café</button>
+          <button type="button" role="tab" id="chip-frios" data-chip="frios" aria-selected="false" aria-controls="sec-frios">Fríos</button>
+          <button type="button" role="tab" id="chip-comida" data-chip="comida" aria-selected="false" aria-controls="sec-comida">Comida</button>
+          <button type="button" role="tab" id="chip-pasteleria" data-chip="pasteleria" aria-selected="false" aria-controls="sec-pasteleria">Pastelería</button>
+          <button type="button" role="tab" id="chip-helado" data-chip="helado" aria-selected="false" aria-controls="sec-helado">Helado</button>
+        </div>
       </div>
       <div class="wrap carta-body" data-carta-body>
         <section id="sec-cafe" class="carta-sec" data-sec="cafe">
           <h3 class="carta-sec-title">Café</h3>
           <div class="menu-block">
-          <h3>Cafetería caliente</h3>
+          <h4 class="menu-block-title">Cafetería caliente</h4>
           <ul class="menu-list">
             <li>
               <span class="item-name">Espresso</span>
@@ -269,7 +260,7 @@
         </div>
 
         <div class="menu-block">
-          <h3>Bebidas calientes</h3>
+          <h4 class="menu-block-title">Bebidas calientes</h4>
           <ul class="menu-list">
             <li>
               <span class="item-name">Bomba de Chocolate</span>
@@ -315,7 +306,7 @@
         </div>
 
         <div class="menu-block">
-          <h3>Extras, filtrado y tostadores</h3>
+          <h4 class="menu-block-title">Extras, filtrado y tostadores</h4>
           <ul class="menu-list">
             <li>
               <span class="item-name">Filtrado</span>
@@ -355,7 +346,7 @@
           <img src="/assets/foto-bebidas-frias.jpg?v=4" width="1000" height="840" alt="Bebidas frías de Lof Espresso" loading="lazy" decoding="async">
         </figure>
 <div class="menu-block">
-          <h3>Cafetería fría</h3>
+          <h4 class="menu-block-title">Cafetería fría</h4>
           <ul class="menu-list">
             <li>
               <span class="item-name">Affogatto vainilla</span>
@@ -396,7 +387,7 @@
         </div>
 
         <div class="menu-block">
-          <h3>Bebidas frías</h3>
+          <h4 class="menu-block-title">Bebidas frías</h4>
           <ul class="menu-list">
             <li>
               <span class="item-name">Frozen shake</span>
@@ -441,7 +432,7 @@
         </div>
 
         <div class="menu-block">
-          <h3>Matcha frío</h3>
+          <h4 class="menu-block-title">Matcha frío</h4>
           <ul class="menu-list">
             <li>
               <span class="item-name">Matcha naranja</span>
@@ -475,7 +466,7 @@
           <img src="/assets/foto-tostadas-palta.jpg?v=4" width="860" height="700" alt="Tostadas palta de Lof Espresso" loading="lazy" decoding="async">
         </figure>
 <div class="menu-block">
-          <h3>Tostadas y sándwich</h3>
+          <h4 class="menu-block-title">Tostadas y sándwich</h4>
           <ul class="menu-list">
             <li>
               <span class="item-name">Paila huevos (3)</span>
@@ -535,7 +526,7 @@
           <img src="/assets/foto-torta-chocolate.jpg?v=4" width="880" height="720" alt="Torta de chocolate de Lof Espresso" loading="lazy" decoding="async">
         </figure>
 <div class="menu-block">
-          <h3>Pastelería</h3>
+          <h4 class="menu-block-title">Pastelería</h4>
           <ul class="menu-list">
             <li>
               <span class="item-name">Pie de limón</span>
@@ -589,7 +580,7 @@
         <section id="sec-helado" class="carta-sec" data-sec="helado">
           <h3 class="carta-sec-title">Helado</h3>
           <div class="menu-block">
-          <h3>Helado artesanal</h3>
+          <h4 class="menu-block-title">Helado artesanal</h4>
           <ul class="menu-list">
             <li>
               <span class="item-name">Copa 2 sabores + 2 toppings</span>
@@ -614,37 +605,42 @@
     <section class="club-view" aria-labelledby="club-title">
       <div class="wrap">
         <h2 id="club-title" class="sec-title">Tarjeta de sellos</h2>
-        <p class="sec-lead">Junta 7 sellos; el 7.º es un café gratis. Te registras con tu RUT; en el local te sumamos sellos.</p>
+        <p class="sec-lead">Junta 7 sellos en el local; el 7.º café es gratis.</p>
+        <p class="club-reassure">Tu RUT solo sirve para encontrar la tarjeta: no hay clave. Los sellos se suman en caja cuando compras.</p>
 
         <div class="club-tabs" role="tablist" aria-label="Tarjeta de sellos">
-          <button type="button" class="is-on" data-club-tab="lookup">Consultar tarjeta</button>
-          <button type="button" data-club-tab="register">Registrarme</button>
+          <button type="button" role="tab" class="is-on" id="tab-lookup" data-club-tab="lookup" aria-selected="true" aria-controls="panel-lookup">Consultar</button>
+          <button type="button" role="tab" id="tab-register" data-club-tab="register" aria-selected="false" aria-controls="panel-register">Registrarme</button>
         </div>
 
-        <form class="club-form" data-club-form="lookup" autocomplete="on">
-          <label>RUT
-            <input name="rut" inputmode="text" autocomplete="off" placeholder="12.345.678-5" required>
-          </label>
-          <button class="btn btn-primary btn-block" type="submit">Ver mi tarjeta</button>
-          <p class="form-msg" data-msg hidden></p>
-        </form>
+        <div id="panel-lookup" role="tabpanel" aria-labelledby="tab-lookup" data-club-panel="lookup">
+          <form class="club-form" data-club-form="lookup" autocomplete="on">
+            <label for="lookup-rut">Tu RUT
+              <input id="lookup-rut" name="rut" inputmode="text" autocomplete="off" placeholder="12.345.678-5" required>
+            </label>
+            <button class="btn btn-primary btn-block" type="submit">Ver mi tarjeta</button>
+            <p class="form-msg" data-msg hidden></p>
+          </form>
+        </div>
 
-        <form class="club-form" data-club-form="register" autocomplete="on" hidden>
-          <label>Nombre
-            <input name="name" autocomplete="name" placeholder="Cómo te llamas" required>
-          </label>
-          <label>RUT
-            <input name="rut" inputmode="text" autocomplete="off" placeholder="12.345.678-5" required>
-          </label>
-          <label>Correo <span class="opt">(opcional)</span>
-            <input name="email" type="email" autocomplete="email" placeholder="para avisarte">
-          </label>
-          <label>WhatsApp <span class="opt">(opcional)</span>
-            <input name="phone" type="tel" autocomplete="tel" placeholder="+56 9 …" inputmode="tel">
-          </label>
-          <button class="btn btn-primary btn-block" type="submit">Crear mi tarjeta</button>
-          <p class="form-msg" data-msg hidden></p>
-        </form>
+        <div id="panel-register" role="tabpanel" aria-labelledby="tab-register" data-club-panel="register" hidden>
+          <form class="club-form" data-club-form="register" autocomplete="on">
+            <label for="reg-name">Tu nombre
+              <input id="reg-name" name="name" autocomplete="name" placeholder="Cómo te llamas" required>
+            </label>
+            <label for="reg-rut">Tu RUT
+              <input id="reg-rut" name="rut" inputmode="text" autocomplete="off" placeholder="12.345.678-5" required>
+            </label>
+            <label for="reg-email">Correo <span class="opt">(opcional)</span>
+              <input id="reg-email" name="email" type="email" autocomplete="email" placeholder="para avisarte">
+            </label>
+            <label for="reg-phone">WhatsApp <span class="opt">(opcional)</span>
+              <input id="reg-phone" name="phone" type="tel" autocomplete="tel" placeholder="+56 9 …" inputmode="tel">
+            </label>
+            <button class="btn btn-primary btn-block" type="submit">Crear mi tarjeta</button>
+            <p class="form-msg" data-msg hidden></p>
+          </form>
+        </div>
 
         <div class="club-card-area" data-club-card hidden></div>
       </div>
@@ -655,7 +651,7 @@
   <div data-view="local" class="view" hidden>
     <section class="local-view" aria-labelledby="local-title">
       <div class="wrap">
-        <h2 id="local-title" class="sec-title">Local</h2>
+        <h2 id="local-title" class="sec-title">El local</h2>
         <figure class="intro-photo">
           <img src="/assets/local-interior.jpg?v=10" width="1080" height="1254" alt="Café y croissant en Lof Espresso" loading="lazy">
         </figure>
@@ -667,12 +663,12 @@
             Lun–Vie 7:30–20:00 · Sáb 9:30–19:00 · Dom cerrado
             <span class="hours-note">Take away desde las 7:30</span>
           </div>
-          <div class="map-embed">
+          <div class="map-embed map-embed--touch">
             <iframe title="Lof Espresso en Google Maps" src="https://www.google.com/maps?q=Lof+Espresso+Caf%C3%A9,+Paseo+Estado+498,+Rancagua&amp;hl=es-CL&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
           </div>
           <div class="place-actions">
             <a class="btn btn-primary" href="https://maps.app.goo.gl/UZu9bESa6kadMU8VA" target="_blank" rel="noopener">Cómo llegar</a>
-            <a class="btn btn-wa" href="https://wa.me/56991872960" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn btn-wa" href="https://wa.me/56991872960" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">WhatsApp</a>
           </div>
         </div>
         <div class="g-mini">
@@ -702,11 +698,11 @@
       </div>
     </div>
     <div class="footer-links">
+      <a href="#/" data-nav="home">Inicio</a>
       <a href="#/carta" data-nav="carta">Carta</a>
       <a href="#/sellos" data-nav="sellos">Sellos</a>
       <a href="#/local" data-nav="local">Local</a>
       <a href="/enlaces/">Enlaces</a>
-      <a href="/admin/">Admin</a>
     </div>
     <p class="lokio-sig">
       <a href="https://lokio.cl" target="_blank" rel="noopener">Web hecha por lok<span class="io">IO</span></a>
@@ -715,6 +711,10 @@
 </footer>
 
 <nav class="bottom-nav" aria-label="Navegación">
+  <a href="#/" data-nav="home" class="bn-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 11.5 12 4l8 7.5"/><path d="M6.5 10.5V20h11V10.5"/></svg>
+    <span>Inicio</span>
+  </a>
   <a href="#/carta" data-nav="carta" class="bn-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
     <span>Carta</span>
@@ -744,7 +744,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js" defer></script>
 <script src="/js/supabase-config.js?v=9" defer></script>
 <script src="/js/rut.js?v=9" defer></script>
-<script src="/js/stamp-card.js?v=13" defer></script>
-<script src="/js/main.js?v=12" defer></script>
+<script src="/js/stamp-card.js?v=14" defer></script>
+<script src="/js/main.js?v=13" defer></script>
 </body>
 </html>

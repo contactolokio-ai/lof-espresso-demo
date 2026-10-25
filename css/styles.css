@@ -698,6 +698,13 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
   background: var(--ink); color: var(--paper);
 }
 .club-form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+.club-form[hidden],
+[data-club-panel][hidden],
+[data-club-form][hidden],
+.club-card-area[hidden],
+.form-msg[hidden] {
+  display: none !important;
+}
 .club-form label {
   display: flex; flex-direction: column; gap: 6px;
   font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
@@ -900,18 +907,19 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 /* Bottom nav */
 .bottom-nav {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: repeat(4, 1fr);
   gap: 0;
-  padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+  padding: 4px 4px calc(6px + env(safe-area-inset-bottom, 0px));
   background: color-mix(in srgb, var(--paper) 94%, transparent);
   backdrop-filter: blur(12px);
   border-top: 1px solid var(--line);
 }
 .bn-item {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 2px; padding: 8px 4px;
+  gap: 2px; padding: 8px 2px;
+  min-height: 48px;
   text-decoration: none; color: var(--muted);
-  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.02em;
   border-radius: 2px;
   transition: color .15s, background .15s;
 }
@@ -983,7 +991,13 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* —— v6 WhatsApp oficial + reseñas Google —— */
-.header-wa { color: #fff; background: #25D366; border-color: #25D366; border-radius: 50%; }
+.header-wa {
+  color: #fff; background: #25D366; border-color: #25D366; border-radius: 50%;
+  width: 44px; height: 44px; min-width: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  text-decoration: none; border: none;
+}
+.header-wa:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .header-wa svg { width: 22px; height: 22px; }
 .enlaces-btns a.wa, .enlaces .wa { background: #25D366 !important; border-color: #25D366 !important; color: #fff !important; }
 .btn-wa { background: #25D366; border: 1px solid #25D366; color: #fff; }
@@ -1106,3 +1120,91 @@ input[type="number"] {
 
 
 /* —— v14 stamp cups SVG —— */
+
+
+/* —— v15 UX simplify —— */
+.club-teaser-card {
+  background: color-mix(in srgb, #fff 55%, var(--paper));
+  background-image: none;
+}
+.teaser-ejemplo-label {
+  margin: 0 0 6px !important;
+  font-size: 0.72rem !important;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted) !important;
+}
+.club-reassure {
+  margin: -12px 0 18px;
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 36em;
+  line-height: 1.4;
+}
+.club-tabs button {
+  min-height: 44px;
+}
+.club-tabs button:focus-visible,
+.carta-chips button:focus-visible,
+.bn-item:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.carta-chips-wrap {
+  position: sticky; top: 60px; z-index: 30;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.carta-chips-wrap::after {
+  content: "";
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: 36px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--paper) 92%, transparent));
+}
+.carta-chips {
+  position: relative; top: auto;
+  background: transparent;
+  border-bottom: none;
+  backdrop-filter: none;
+}
+.carta-chips button {
+  min-height: 44px;
+  padding: 10px 16px;
+}
+.menu-block-title {
+  margin: 0 0 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.place-card--compact { padding-bottom: 4px; }
+.place-card--compact .place-actions { margin-top: 12px; }
+.map-embed--touch {
+  touch-action: pan-x pan-y;
+}
+.map-embed--touch iframe {
+  pointer-events: none;
+}
+.map-embed--touch.is-map-active iframe,
+.map-embed--touch:focus-within iframe {
+  pointer-events: auto;
+}
+.pill-take {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex; align-items: center;
+  min-height: 36px;
+}
+.pill-take:hover { color: #fff; border-color: rgba(244,239,230,0.7); }
+.btn { min-height: 44px; }
+.hero--photo .tag { display: none; }
+@media (min-width: 720px) {
+  .carta-chips-wrap { top: 64px; }
+  .carta-chips { justify-content: center; }
+}

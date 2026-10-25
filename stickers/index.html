@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/styles.css?v=14">
+<link rel="stylesheet" href="/css/styles.css?v=15">
 <style>
   body.stickers-page { min-height: 100dvh; }
   .stickers-wrap { max-width: 480px; margin: 0 auto; padding: 24px 16px 48px; }
@@ -34,7 +34,7 @@
         <p>Lof Espresso · Rancagua</p>
       </div>
     </div>
-    <p class="sec-lead" style="margin-top:0">Escribe tu RUT para ver tu tarjeta digital.</p>
+    <p class="sec-lead" style="margin-top:0">Escribe tu RUT para ver tu tarjeta. Sin clave: los sellos se suman en el local.</p>
     <form class="club-form" id="form-lookup" autocomplete="on">
       <label>RUT
         <input name="rut" inputmode="text" autocomplete="off" placeholder="12.345.678-5" required>
@@ -55,7 +55,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
 <script src="/js/supabase-config.js?v=9"></script>
 <script src="/js/rut.js?v=9"></script>
-<script src="/js/stamp-card.js?v=13"></script>
+<script src="/js/stamp-card.js?v=14"></script>
 <script>
 (function () {
   var cfg = window.LOF_SUPABASE || {};
@@ -87,10 +87,10 @@
       if (res.error) throw res.error;
       var data = res.data;
       if (!data || !data.found) {
-        setMsg("No encontramos ese RUT. Regístrate en la web (Sellos).");
+        setMsg("No hay tarjeta con ese RUT. Regístrate en la web (Sellos).");
         return;
       }
-      setMsg("Listo — esta es tu tarjeta.", true);
+      setMsg("Esta es tu tarjeta. En caja te suman sellos.", true);
       area.innerHTML = window.LofStampCard.cardHTML({
         name: data.member.name,
         rutFmt: window.LofRut.format(data.member.rut) || data.member.rut,

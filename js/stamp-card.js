@@ -90,7 +90,7 @@
     html += '<p class="dc-brand">Lof Espresso</p>';
     if (name) html += "<h3>" + esc(name) + "</h3>";
     if (rut) html += '<p class="dc-meta">RUT ' + esc(rut) + "</p>";
-    else if (demo) html += '<p class="dc-meta">Así se ve tu tarjeta</p>';
+    else if (demo) html += '<p class="dc-meta">Ejemplo de tarjeta</p>';
     html += stampsHTML(stickers, meta);
     html += '<p class="dc-reward">Premio: <strong>' + esc(premio) + "</strong></p>";
     html += '<div class="dc-foot"><span>' + esc(status) + "</span><strong>" + stickers + "/" + meta + "</strong></div>";

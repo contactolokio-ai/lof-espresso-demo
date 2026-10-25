@@ -50,6 +50,9 @@
       a.classList.toggle("is-active", a.getAttribute("data-nav") === name);
     });
     window.scrollTo(0, 0);
+    if (name === "sellos" && typeof showClubTab === "function") {
+      // keep current tab if user toggled; default handled at init
+    }
   }
 
   document.querySelectorAll("[data-nav]").forEach(function (a) {
@@ -159,24 +162,55 @@
     });
   })();
 
-  /* —— Tarjeta de sellos —— */
+  /* —— Tarjeta de sellos (tabs isolate panels) —— */
   var clubTabs = document.querySelectorAll("[data-club-tab]");
+  var clubPanels = {
+    lookup: document.querySelector('[data-club-panel="lookup"]'),
+    register: document.querySelector('[data-club-panel="register"]')
+  };
   var forms = {
     lookup: document.querySelector('[data-club-form="lookup"]'),
     register: document.querySelector('[data-club-form="register"]')
   };
   var cardArea = document.querySelector("[data-club-card]");
 
+  function showClubTab(which) {
+    clubTabs.forEach(function (x) {
+      var on = x.getAttribute("data-club-tab") === which;
+      x.classList.toggle("is-on", on);
+      x.setAttribute("aria-selected", on ? "true" : "false");
+      x.setAttribute("tabindex", on ? "0" : "-1");
+    });
+    Object.keys(clubPanels).forEach(function (k) {
+      var panel = clubPanels[k];
+      if (!panel) return;
+      var on = k === which;
+      panel.hidden = !on;
+      panel.setAttribute("aria-hidden", on ? "false" : "true");
+    });
+    // legacy: also hide inactive forms if panels missing
+    Object.keys(forms).forEach(function (k) {
+      if (forms[k] && !clubPanels[k]) forms[k].hidden = k !== which;
+    });
+    if (cardArea) cardArea.hidden = true;
+    // avoid blank-top scroll jump when switching tabs on mobile
+    var sellosView = views.sellos;
+    if (sellosView && !sellosView.hidden) {
+      var tabsEl = document.querySelector(".club-tabs");
+      if (tabsEl) {
+        var y = tabsEl.getBoundingClientRect().top + window.scrollY - 72;
+        if (window.scrollY > y + 40) window.scrollTo(0, Math.max(0, y));
+      }
+    }
+  }
+
   clubTabs.forEach(function (t) {
     t.addEventListener("click", function () {
-      var which = t.getAttribute("data-club-tab");
-      clubTabs.forEach(function (x) { x.classList.toggle("is-on", x === t); });
-      Object.keys(forms).forEach(function (k) {
-        if (forms[k]) forms[k].hidden = k !== which;
-      });
-      if (cardArea) cardArea.hidden = true;
+      showClubTab(t.getAttribute("data-club-tab"));
     });
   });
+  // initial isolation (critical: CSS display:flex can override bare [hidden])
+  showClubTab("lookup");
 
   function setMsg(form, text, ok) {
     var msg = form.querySelector("[data-msg]");
@@ -234,10 +268,10 @@
       try {
         var data = await rpc("club_get_by_rut", { p_rut: window.LofRut.normalize(rut) });
         if (!data || !data.found) {
-          setMsg(forms.lookup, "No encontramos ese RUT. Prueba con «Quiero entrar».");
+          setMsg(forms.lookup, "No hay tarjeta con ese RUT. Toca «Registrarme» para crear una.");
           cardArea.hidden = true;
         } else {
-          setMsg(forms.lookup, "Listo — esta es tu tarjeta.", true);
+          setMsg(forms.lookup, "Esta es tu tarjeta. En el local te suman sellos en caja.", true);
           renderCards(data.member, data.cards, data.meta, data.premio);
         }
       } catch (err) {
@@ -275,7 +309,7 @@
           setMsg(forms.register, "No se pudo registrar. Revisa el RUT.");
           return;
         }
-        setMsg(forms.register, "Listo. Esta es tu tarjeta de sellos.", true);
+        setMsg(forms.register, "Listo. Muestra tu RUT en caja para que te sumen el primer sello.", true);
         renderCards(data.member, data.cards, data.meta, data.premio);
       } catch (err) {
         setMsg(forms.register, "No se pudo registrar. Intenta de nuevo.");
@@ -284,6 +318,17 @@
       }
     });
   }
+
+
+  /* Map: avoid scroll trap — tap to enable interaction */
+  document.querySelectorAll(".map-embed--touch").forEach(function (box) {
+    box.addEventListener("click", function () {
+      box.classList.add("is-map-active");
+    });
+    box.addEventListener("mouseleave", function () {
+      box.classList.remove("is-map-active");
+    });
+  });
 
   window.addEventListener("hashchange", route);
   // support old #carta links
