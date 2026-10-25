@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/styles.css?v=9">
+<link rel="stylesheet" href="/css/styles.css?v=10">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -85,7 +85,7 @@
         <p class="tag">La comunidad del espresso</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#/carta" data-nav="carta">Ver carta</a>
-          <a class="btn btn-ghost-light" href="#/club" data-nav="club">Club Lof</a>
+          <a class="btn btn-ghost-light" href="#/sellos" data-nav="sellos">Tarjeta de sellos</a>
         </div>
       </div>
     </section>
@@ -132,9 +132,9 @@
     <section class="club-teaser" aria-labelledby="club-teaser-title">
       <div class="wrap">
         <div class="club-teaser-card">
-          <h2 id="club-teaser-title">Club Lof</h2>
-          <p>Junta sellos con tu RUT y canjea un café de especialidad. Sin app: lo haces acá mismo.</p>
-          <a class="btn btn-primary" href="#/club" data-nav="club">Entrar al Club</a>
+          <h2 id="club-teaser-title">Tarjeta de sellos</h2>
+          <p>Junta sellos con tu RUT y canjea un café de especialidad. Sin app: lo miras acá mismo.</p>
+          <a class="btn btn-primary" href="#/sellos" data-nav="sellos">Ver mi tarjeta</a>
         </div>
       </div>
     </section>
@@ -604,16 +604,16 @@
     </section>
   </div>
 
-  <!-- CLUB -->
-  <div data-view="club" class="view" hidden>
+  <!-- SELLOS / FIDELIZACIÓN -->
+  <div data-view="sellos" class="view" hidden>
     <section class="club-view" aria-labelledby="club-title">
       <div class="wrap">
-        <h2 id="club-title" class="sec-title">Club Lof</h2>
+        <h2 id="club-title" class="sec-title">Tarjeta de sellos</h2>
         <p class="sec-lead">Junta 8 sellos y te regalan 1 café de especialidad. Te registras con tu RUT; en el local te sumamos sellos.</p>
 
-        <div class="club-tabs" role="tablist" aria-label="Club">
-          <button type="button" class="is-on" data-club-tab="lookup">Ya soy socio</button>
-          <button type="button" data-club-tab="register">Quiero entrar</button>
+        <div class="club-tabs" role="tablist" aria-label="Tarjeta de sellos">
+          <button type="button" class="is-on" data-club-tab="lookup">Consultar tarjeta</button>
+          <button type="button" data-club-tab="register">Registrarme</button>
         </div>
 
         <form class="club-form" data-club-form="lookup" autocomplete="on">
@@ -695,7 +695,7 @@
     </div>
     <div class="footer-links">
       <a href="#/carta" data-nav="carta">Carta</a>
-      <a href="#/club" data-nav="club">Club</a>
+      <a href="#/sellos" data-nav="sellos">Sellos</a>
       <a href="#/local" data-nav="local">Local</a>
       <a href="/enlaces/">Enlaces</a>
       <a href="/admin/">Admin</a>
@@ -711,9 +711,9 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
     <span>Carta</span>
   </a>
-  <a href="#/club" data-nav="club" class="bn-item">
+  <a href="#/sellos" data-nav="sellos" class="bn-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="1.5"/><path d="M3 10h18"/></svg>
-    <span>Club</span>
+    <span>Sellos</span>
   </a>
   <a href="#/local" data-nav="local" class="bn-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.2"/></svg>
@@ -736,7 +736,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js" defer></script>
 <script src="/js/supabase-config.js?v=9" defer></script>
 <script src="/js/rut.js?v=9" defer></script>
-<script src="/js/stamp-card.js?v=9" defer></script>
-<script src="/js/main.js?v=9" defer></script>
+<script src="/js/stamp-card.js?v=10" defer></script>
+<script src="/js/main.js?v=10" defer></script>
 </body>
 </html>

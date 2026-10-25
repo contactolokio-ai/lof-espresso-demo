@@ -8,7 +8,7 @@
   var views = {
     home: document.querySelector('[data-view="home"]'),
     carta: document.querySelector('[data-view="carta"]'),
-    club: document.querySelector('[data-view="club"]'),
+    sellos: document.querySelector('[data-view="sellos"]') || document.querySelector('[data-view="club"]'),
     local: document.querySelector('[data-view="local"]')
   };
   var navItems = document.querySelectorAll(".bn-item, [data-nav]");
@@ -24,6 +24,7 @@
       return;
     }
     if (name === "ubicacion") name = "local";
+    if (name === "club" || name === "fidelizacion") name = "sellos";
     if (!views[name]) name = "home";
     show(name);
     if (name === "carta") {
@@ -146,7 +147,7 @@
     });
   });
 
-  /* —— Club —— */
+  /* —— Tarjeta de sellos —— */
   var clubTabs = document.querySelectorAll("[data-club-tab]");
   var forms = {
     lookup: document.querySelector('[data-club-form="lookup"]'),
@@ -262,7 +263,7 @@
           setMsg(forms.register, "No se pudo registrar. Revisa el RUT.");
           return;
         }
-        setMsg(forms.register, "Bienvenido al Club Lof.", true);
+        setMsg(forms.register, "Listo. Esta es tu tarjeta de sellos.", true);
         renderCards(data.member, data.cards, data.meta, data.premio);
       } catch (err) {
         setMsg(forms.register, "No se pudo registrar. Intenta de nuevo.");
@@ -275,7 +276,8 @@
   window.addEventListener("hashchange", route);
   // support old #carta links
   if (location.hash === "#carta") location.hash = "#/carta";
-  if (location.hash === "#club") location.hash = "#/club";
+  if (location.hash === "#club" || location.hash === "#sellos") location.hash = "#/sellos";
+  if (location.hash === "#/club") location.hash = "#/sellos";
   if (location.hash === "#ubicacion") location.hash = "#/local";
   route();
 })();

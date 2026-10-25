@@ -295,7 +295,7 @@
         "<b>Para:</b> " + esc(m.email) + "<br>" +
         "<b>Asunto:</b> " + esc(nom) + ", te faltan " + faltan + " sellos</div>" +
         "<p>Hola " + esc(nom) + ",</p>" +
-        "<p>En Club Lof llevas <b>" + (m.stickers || 0) + " de " + settings.meta + "</b>. " +
+        "<p>En tu tarjeta llevas <b>" + (m.stickers || 0) + " de " + settings.meta + "</b>. " +
         "Te faltan <b>" + faltan + "</b> para " + esc(String(settings.premio).toLowerCase()) + ".</p>" +
         window.LofStampCard.stampsHTML(m.stickers, settings.meta) +
         "<p>Te esperamos en Paseo Estado 498, Rancagua.</p>" +

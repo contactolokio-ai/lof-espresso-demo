@@ -1,4 +1,4 @@
-/* Shared digital stamp card renderer — Lof Club (no Canela branding) */
+/* Shared digital stamp card renderer — tarjeta de sellos Lof */
 (function (global) {
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
@@ -33,7 +33,7 @@
       : "Llevas " + stickers + " de " + meta + ". Faltan " + faltan + " para: " + premio;
 
     var html = '<div class="digital-card' + (ready ? " is-ready" : "") + '">';
-    html += '<div class="dc-top"><span class="dc-label">Club Lof</span>';
+    html += '<div class="dc-top"><span class="dc-label">Tarjeta de sellos</span>';
     if (ready) html += '<span class="dc-badge">PREMIO</span>';
     else html += '<span class="dc-prize-tag">' + esc(premio) + "</span>";
     html += "</div>";
