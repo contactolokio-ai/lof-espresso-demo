@@ -1449,3 +1449,78 @@ html.intro-done .hero h1 .intro-char {
 /* Soft blurred coffee beans on paper backgrounds */
 body { background-image: url("/assets/beans-soft.svg?v=1"); background-size: 420px 420px; background-attachment: fixed; }
 .site-footer { background-image: url("/assets/beans-soft.svg?v=1"); background-size: 420px 420px; }
+
+/* Carta: fondo de la carta física (catedral Rancagua) */
+.carta-view {
+  position: relative;
+  isolation: isolate;
+  padding-top: 12px;
+  padding-bottom: 24px;
+  border-bottom: none;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--paper) 62%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 48%, transparent) 35%,
+      color-mix(in srgb, var(--paper) 58%, transparent) 100%
+    ),
+    url("/assets/carta-bg-cathedral.jpg?v=1");
+  background-size: cover, cover;
+  background-position: center top, center 18%;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+}
+@supports (background-attachment: fixed) {
+  @media (min-width: 720px) and (hover: hover) {
+    .carta-view {
+      background-attachment: scroll, fixed;
+    }
+  }
+}
+.carta-view .carta-head {
+  position: relative;
+  z-index: 1;
+  padding: 8px 12px 10px;
+  margin-bottom: 4px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter: blur(6px);
+}
+.carta-view .carta-chips-wrap {
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+}
+.carta-view .carta-body {
+  position: relative;
+  z-index: 1;
+}
+.carta-view .carta-sec {
+  padding: 16px 12px 12px;
+  margin: 8px 0 12px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--paper) 90%, #fff 6%);
+  border: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, #fff 40%, transparent);
+}
+.carta-view .carta-sec-title {
+  margin-top: 0;
+}
+.carta-view .menu-list li {
+  background: color-mix(in srgb, var(--paper) 72%, #fff);
+  border-radius: var(--radius-xs);
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 0;
+  margin-right: 0;
+  border-bottom-color: color-mix(in srgb, var(--line) 70%, transparent);
+}
+.carta-view .menu-list li:hover,
+.carta-view .menu-list li:active {
+  background: color-mix(in srgb, var(--paper-deep) 55%, #fff);
+}
+.carta-view .carta-foot {
+  padding: 10px 12px;
+  border-radius: var(--radius-xs);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+.carta-view .menu-block + .menu-block { margin-top: 14px; }
