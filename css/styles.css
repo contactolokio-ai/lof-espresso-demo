@@ -1271,11 +1271,13 @@ html.is-intro.is-intro-letters .hero h1 .intro-char {
 /* Supporting hero bits after letters start */
 html.is-intro.is-intro-letters .hero--photo .hero-logo,
 html.is-intro.is-intro-letters .hero--photo .what,
+html.is-intro.is-intro-letters .hero--photo .hero-hours,
 html.is-intro.is-intro-letters .hero--photo .hero-actions {
   animation: lofIntroFade 0.7s ease forwards;
 }
 html.is-intro.is-intro-letters .hero--photo .hero-logo { animation-delay: 0.05s; }
 html.is-intro.is-intro-letters .hero--photo .what { animation-delay: 0.45s; }
+html.is-intro.is-intro-letters .hero--photo .hero-hours { animation-delay: 0.55s; }
 html.is-intro.is-intro-letters .hero--photo .hero-actions { animation-delay: 0.65s; }
 @keyframes lofIntroFade {
   from { opacity: 0; transform: translate3d(0, 10px, 0); }
@@ -1423,4 +1425,23 @@ html.intro-done .hero h1 .intro-char {
       0 0 16px rgba(107, 78, 61, 0.4);
   }
   .hero--photo .btn-shine::after { animation: none; display: none; }
+}
+
+/* Hours integrated in hero: soft line, no bar */
+.hero--photo .hero-hours {
+  margin: -6px 0 18px;
+  font-size: 0.84rem;
+  line-height: 1.4;
+  color: rgba(250, 244, 234, 0.78);
+  letter-spacing: 0.01em;
+}
+.hero--photo .hero-hours a {
+  color: rgba(250, 244, 234, 0.92);
+  text-decoration: underline;
+  text-decoration-color: rgba(250, 244, 234, 0.4);
+  text-underline-offset: 3px;
+}
+.hero--photo .hero-hours a:hover { text-decoration-color: currentColor; }
+@media (max-height: 620px) {
+  .home-fold .hero--photo .hero-hours { font-size: 0.78rem; margin: -4px 0 10px; }
 }
