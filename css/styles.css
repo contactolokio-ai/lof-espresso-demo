@@ -554,7 +554,8 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }
 
 .hero--photo {
-  min-height: min(62vh, 520px);
+  min-height: 0;
+  flex: 1 1 auto;
   padding: 0;
   align-items: flex-end;
   border-bottom: none;
@@ -575,13 +576,23 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }
 .hero--photo .hero-inner {
   position: relative; z-index: 1;
-  padding: 28px 20px 32px;
+  padding: 20px 20px 22px;
   color: #f4efe6;
 }
-.hero--photo h1 { color: #f4efe6; }
-.hero--photo .what { color: rgba(244,239,230,0.88); }
+.hero--photo h1 {
+  color: #f4efe6;
+  font-size: clamp(1.7rem, 6.2vw, 2.6rem);
+  margin-bottom: 4px;
+}
+.hero--photo .what {
+  color: rgba(244,239,230,0.88);
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+}
 .hero--photo .tag { color: #e8d5c0; margin-bottom: 18px; }
 .hero--photo .hero-logo {
+  width: 68px; height: 68px;
+  margin-bottom: 12px;
   box-shadow: 0 0 0 1px rgba(244,239,230,0.35);
 }
 .btn-ghost-light {
@@ -591,10 +602,11 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 .btn-ghost-light:hover { background: rgba(244,239,230,0.12); color: #fff; }
 
 .strip-hours {
-  padding: 14px 0;
+  padding: 10px 0;
   background: var(--ink);
   color: var(--paper);
   border-bottom: none;
+  flex-shrink: 0;
 }
 .strip-hours-inner {
   display: flex; flex-wrap: wrap; gap: 10px 16px;
@@ -986,7 +998,6 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 .addr-note { font-size: 0.88rem; color: var(--muted) !important; }
 
 @media (min-width: 720px) {
-  .hero--photo { min-height: min(70vh, 600px); }
   .carta-chips { top: 64px; justify-content: center; }
 }
 
@@ -1287,4 +1298,129 @@ html.intro-done .hero h1 .intro-char {
   html.is-intro .hero--photo .hero-scrim { opacity: 1; }
   html.is-intro .hero--photo .hero-inner > * { opacity: 1; }
   html.is-intro .hero h1 .intro-char { opacity: 1; transform: none; animation: none; }
+}
+
+
+/* —— One-screen home fold + Ver carta shine —— */
+:root {
+  --lof-header: 64px;
+  --lof-bn: calc(60px + env(safe-area-inset-bottom, 0px));
+}
+/* First viewport: header (in flow) + fold = 100svh/dvh above bottom nav */
+.home-fold {
+  display: flex;
+  flex-direction: column;
+  /* Fill first viewport below sticky header, above fixed bottom nav */
+  min-height: calc(100svh - var(--lof-header) - var(--lof-bn));
+  min-height: calc(100dvh - var(--lof-header) - var(--lof-bn));
+}
+.home-fold .hero--photo {
+  flex: 1 1 auto;
+  min-height: 0;
+  /* keep photo readable; content pinned to bottom */
+}
+.home-fold .strip-hours .wrap {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.home-fold .strip-hours-inner {
+  gap: 8px;
+  align-items: center;
+}
+.home-fold .strip-hours span {
+  font-size: 0.82rem;
+  line-height: 1.25;
+}
+.home-fold .pill-take {
+  padding: 6px 12px;
+  font-size: 0.78rem;
+}
+
+/* Short phones / landscape: shrink chrome inside hero so CTAs stay visible */
+@media (max-height: 620px) {
+  .home-fold .hero--photo .hero-logo {
+    width: 52px; height: 52px; margin-bottom: 8px;
+  }
+  .home-fold .hero--photo .hero-inner { padding: 14px 16px 16px; }
+  .home-fold .hero--photo h1 { font-size: clamp(1.45rem, 5.5vw, 2rem); }
+  .home-fold .hero--photo .what { font-size: 0.88rem; margin-bottom: 10px; }
+  .home-fold .hero-actions { gap: 8px; }
+  .home-fold .btn { padding: 11px 16px; min-height: 42px; font-size: 0.9rem; }
+  .home-fold .strip-hours { padding: 8px 0; }
+}
+@media (max-height: 520px) {
+  .home-fold .strip-hours { display: none; } /* keep CTAs; hours moves under fold */
+}
+
+/* Desktop: same one-screen rule, slightly roomier type */
+@media (min-width: 720px) {
+  :root { --lof-header: 68px; }
+  .home-fold .hero--photo .hero-inner {
+    padding: 28px 28px 28px;
+    max-width: var(--max);
+  }
+  .home-fold .hero--photo .hero-logo {
+    width: 80px; height: 80px; margin-bottom: 14px;
+  }
+  .home-fold .hero--photo .what { font-size: 1.05rem; margin-bottom: 16px; }
+}
+
+/* Ver carta — subtle shine + pulse (brand ink/paper/accent) */
+.hero--photo .btn-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow:
+    0 0 0 1px rgba(244, 239, 230, 0.18),
+    0 0 18px rgba(107, 78, 61, 0.42);
+  animation: lofBtnPulse 2.6s ease-in-out infinite;
+}
+.hero--photo .btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -40%;
+  width: 40%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(244, 239, 230, 0.08) 35%,
+    rgba(244, 239, 230, 0.38) 50%,
+    rgba(244, 239, 230, 0.08) 65%,
+    transparent 100%
+  );
+  transform: translateX(-30%);
+  animation: lofBtnShine 2.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero--photo .btn-shine > * { position: relative; z-index: 2; }
+@keyframes lofBtnPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0 rgba(244, 239, 230, 0),
+      0 0 14px rgba(107, 78, 61, 0.32);
+  }
+  50% {
+    box-shadow:
+      0 0 0 5px rgba(244, 239, 230, 0.14),
+      0 0 28px rgba(107, 78, 61, 0.55);
+  }
+}
+@keyframes lofBtnShine {
+  0%, 35% { transform: translateX(-40%); opacity: 0; }
+  45% { opacity: 1; }
+  70% { transform: translateX(280%); opacity: 1; }
+  80%, 100% { transform: translateX(280%); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero--photo .btn-shine {
+    animation: none;
+    box-shadow:
+      0 0 0 2px rgba(244, 239, 230, 0.28),
+      0 0 16px rgba(107, 78, 61, 0.4);
+  }
+  .hero--photo .btn-shine::after { animation: none; display: none; }
 }
