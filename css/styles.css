@@ -1478,7 +1478,7 @@ html.intro-done .hero h1 .intro-char {
 body { background-image: url("/assets/beans-soft.svg?v=2"); background-size: 420px 420px; background-attachment: fixed; }
 .site-footer { background-image: url("/assets/beans-soft.svg?v=2"); background-size: 420px 420px; }
 
-/* Carta: fondo de la carta física (catedral Rancagua) — plate visible */
+/* Carta: Catedral de Rancagua (foto limpia, wash crema) */
 .carta-view {
   position: relative;
   isolation: isolate;
@@ -1489,13 +1489,14 @@ body { background-image: url("/assets/beans-soft.svg?v=2"); background-size: 420
   background-image:
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--paper) 12%, transparent) 0%,
-      color-mix(in srgb, var(--paper) 6%, transparent) 30%,
-      color-mix(in srgb, var(--paper) 10%, transparent) 100%
+      color-mix(in srgb, var(--paper) 28%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 8%, transparent) 22%,
+      color-mix(in srgb, var(--paper) 4%, transparent) 55%,
+      color-mix(in srgb, var(--paper) 18%, transparent) 100%
     ),
-    url("/assets/carta-bg-cathedral.jpg?v=3");
+    url("/assets/carta-bg-cathedral.jpg?v=4");
   background-size: cover, cover;
-  background-position: center top, center 12%;
+  background-position: center top, center 8%;
   background-repeat: no-repeat;
   background-attachment: scroll;
 }
