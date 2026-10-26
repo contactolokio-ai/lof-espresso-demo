@@ -1319,7 +1319,35 @@ html.intro-done .hero h1 .intro-char {
 .home-fold .hero--photo {
   flex: 1 1 auto;
   min-height: 0;
-  /* keep photo readable; content pinned to bottom */
+  align-items: stretch; /* was flex-end: content piled at bottom */
+}
+.home-fold .hero--photo .hero-inner {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+  width: 100%;
+  max-width: var(--max);
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 28px 20px 26px;
+}
+/* Let space-between own the vertical rhythm */
+.home-fold .hero--photo .hero-logo { margin-bottom: 0; }
+.home-fold .hero--photo h1 { margin-bottom: 0; }
+.home-fold .hero--photo .what { margin-bottom: 0; }
+.home-fold .hero--photo .hero-hours { margin: 0; }
+.home-fold .hero--photo .hero-scrim {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20, 16, 12, 0.38) 0%,
+      rgba(20, 16, 12, 0.42) 42%,
+      rgba(20, 16, 12, 0.74) 100%
+    );
 }
 .home-fold .strip-hours .wrap {
   padding-top: 0;
@@ -1341,11 +1369,11 @@ html.intro-done .hero h1 .intro-char {
 /* Short phones / landscape: shrink chrome inside hero so CTAs stay visible */
 @media (max-height: 620px) {
   .home-fold .hero--photo .hero-logo {
-    width: 52px; height: 52px; margin-bottom: 8px;
+    width: 52px; height: 52px; margin-bottom: 0;
   }
-  .home-fold .hero--photo .hero-inner { padding: 14px 16px 16px; }
+  .home-fold .hero--photo .hero-inner { padding: 16px 16px 14px; }
   .home-fold .hero--photo h1 { font-size: clamp(1.45rem, 5.5vw, 2rem); }
-  .home-fold .hero--photo .what { font-size: 0.88rem; margin-bottom: 10px; }
+  .home-fold .hero--photo .what { font-size: 0.88rem; margin-bottom: 0; }
   .home-fold .hero-actions { gap: 8px; }
   .home-fold .btn { padding: 11px 16px; min-height: 42px; font-size: 0.9rem; }
   .home-fold .strip-hours { padding: 8px 0; }
@@ -1358,13 +1386,13 @@ html.intro-done .hero h1 .intro-char {
 @media (min-width: 720px) {
   :root { --lof-header: 68px; }
   .home-fold .hero--photo .hero-inner {
-    padding: 28px 28px 28px;
+    padding: 36px 28px 32px;
     max-width: var(--max);
   }
   .home-fold .hero--photo .hero-logo {
-    width: 80px; height: 80px; margin-bottom: 14px;
+    width: 80px; height: 80px; margin-bottom: 0;
   }
-  .home-fold .hero--photo .what { font-size: 1.05rem; margin-bottom: 16px; }
+  .home-fold .hero--photo .what { font-size: 1.05rem; margin-bottom: 0; }
 }
 
 /* Ver carta — subtle shine + pulse (brand ink/paper/accent) */
@@ -1443,14 +1471,14 @@ html.intro-done .hero h1 .intro-char {
 }
 .hero--photo .hero-hours a:hover { text-decoration-color: currentColor; }
 @media (max-height: 620px) {
-  .home-fold .hero--photo .hero-hours { font-size: 0.78rem; margin: -4px 0 10px; }
+  .home-fold .hero--photo .hero-hours { font-size: 0.78rem; margin: 0; }
 }
 
 /* Soft blurred coffee beans on paper backgrounds */
-body { background-image: url("/assets/beans-soft.svg?v=1"); background-size: 420px 420px; background-attachment: fixed; }
-.site-footer { background-image: url("/assets/beans-soft.svg?v=1"); background-size: 420px 420px; }
+body { background-image: url("/assets/beans-soft.svg?v=2"); background-size: 420px 420px; background-attachment: fixed; }
+.site-footer { background-image: url("/assets/beans-soft.svg?v=2"); background-size: 420px 420px; }
 
-/* Carta: fondo de la carta física (catedral Rancagua) */
+/* Carta: fondo de la carta física (catedral Rancagua) — plate visible */
 .carta-view {
   position: relative;
   isolation: isolate;
@@ -1461,11 +1489,11 @@ body { background-image: url("/assets/beans-soft.svg?v=1"); background-size: 420
   background-image:
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--paper) 62%, transparent) 0%,
-      color-mix(in srgb, var(--paper) 48%, transparent) 35%,
-      color-mix(in srgb, var(--paper) 58%, transparent) 100%
+      color-mix(in srgb, var(--paper) 22%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 14%, transparent) 28%,
+      color-mix(in srgb, var(--paper) 18%, transparent) 100%
     ),
-    url("/assets/carta-bg-cathedral.jpg?v=1");
+    url("/assets/carta-bg-cathedral.jpg?v=2");
   background-size: cover, cover;
   background-position: center top, center 18%;
   background-repeat: no-repeat;
@@ -1484,43 +1512,60 @@ body { background-image: url("/assets/beans-soft.svg?v=1"); background-size: 420
   padding: 8px 12px 10px;
   margin-bottom: 4px;
   border-radius: var(--radius-sm);
-  background: color-mix(in srgb, var(--paper) 86%, transparent);
-  backdrop-filter: blur(6px);
+  background: color-mix(in srgb, var(--paper) 55%, transparent);
+  backdrop-filter: blur(4px);
 }
 .carta-view .carta-chips-wrap {
-  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  background: color-mix(in srgb, var(--paper) 48%, transparent);
+  backdrop-filter: blur(8px);
 }
 .carta-view .carta-body {
   position: relative;
   z-index: 1;
 }
+/* Section wrappers stay mostly open so cathedral shows in gaps */
 .carta-view .carta-sec {
-  padding: 16px 12px 12px;
-  margin: 8px 0 12px;
-  border-radius: var(--radius-sm);
-  background: color-mix(in srgb, var(--paper) 90%, #fff 6%);
-  border: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
-  box-shadow: 0 1px 0 color-mix(in srgb, #fff 40%, transparent);
+  padding: 14px 4px 10px;
+  margin: 14px 0 18px;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 .carta-view .carta-sec-title {
   margin-top: 0;
+  padding: 6px 10px;
+  display: inline-block;
+  border-radius: var(--radius-xs);
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
 }
 .carta-view .menu-list li {
-  background: color-mix(in srgb, var(--paper) 72%, #fff);
+  background: color-mix(in srgb, var(--paper) 82%, #fff);
   border-radius: var(--radius-xs);
   padding-left: 10px;
   padding-right: 10px;
   margin-left: 0;
   margin-right: 0;
-  border-bottom-color: color-mix(in srgb, var(--line) 70%, transparent);
+  margin-bottom: 4px;
+  border-bottom-color: color-mix(in srgb, var(--line) 55%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, #fff 35%, transparent);
 }
 .carta-view .menu-list li:hover,
 .carta-view .menu-list li:active {
-  background: color-mix(in srgb, var(--paper-deep) 55%, #fff);
+  background: color-mix(in srgb, var(--paper-deep) 60%, #fff);
 }
 .carta-view .carta-foot {
   padding: 10px 12px;
   border-radius: var(--radius-xs);
-  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  background: color-mix(in srgb, var(--paper) 72%, transparent);
 }
 .carta-view .menu-block + .menu-block { margin-top: 14px; }
+.carta-view .menu-block-title {
+  padding: 4px 8px;
+  display: inline-block;
+  border-radius: var(--radius-xs);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+}
+.carta-view .panel-thumb {
+  background: color-mix(in srgb, var(--paper) 75%, transparent);
+}
