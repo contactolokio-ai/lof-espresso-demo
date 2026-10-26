@@ -1,7 +1,7 @@
 /* Tarjeta gráfica de fidelización — 7 sellos, el 7.º gratis */
 (function (global) {
   var DEFAULT_META = 7;
-  var DEFAULT_PREMIO = "1 café gratis";
+  var DEFAULT_PREMIO = "1 café gratis a elección";
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
@@ -74,18 +74,23 @@
     var ready = stickers >= meta;
     var demo = !!opts.demo;
 
-    var status = ready
-      ? "Tarjeta completa. Cobra en caja: " + premio
-      : stickers === 0
-        ? "Junta " + meta + " sellos; el " + meta + ".º es " + premio + "."
-        : "Llevas " + stickers + " de " + meta + ". Te faltan " + faltan + ".";
+    var status;
+    if (ready) {
+      status = "Tarjeta completa. Cobra en caja: " + premio;
+    } else if (stickers === 0) {
+      status = "Junta " + meta + " sellos; el " + meta + ".º es " + premio + ".";
+    } else if (faltan <= Math.ceil(meta / 2)) {
+      status = "Llevas " + stickers + " de " + meta + ". Te falta poco.";
+    } else {
+      status = "Llevas " + stickers + " de " + meta + ". Te faltan " + faltan + ".";
+    }
 
     var html = '<article class="digital-card' + (ready ? " is-ready" : "") + (demo ? " is-demo" : "") + '">';
     html += '<div class="dc-band" aria-hidden="true"></div>';
     html += '<div class="dc-ornament" aria-hidden="true"></div>';
     html += '<div class="dc-top"><span class="dc-label">Tarjeta de sellos</span>';
     if (ready) html += '<span class="dc-badge">LISTO</span>';
-    else html += '<span class="dc-prize-tag">' + esc(meta) + "º gratis</span>";
+    else html += '<span class="dc-prize-tag">' + esc(meta) + "º a elección</span>";
     html += "</div>";
     html += '<p class="dc-brand">Lof Espresso</p>';
     if (name) html += "<h3>" + esc(name) + "</h3>";

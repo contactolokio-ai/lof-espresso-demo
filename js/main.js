@@ -158,7 +158,7 @@
       demo: true,
       stickers: 3,
       meta: window.LofStampCard.DEFAULT_META || 7,
-      premio: window.LofStampCard.DEFAULT_PREMIO || "1 café gratis"
+      premio: window.LofStampCard.DEFAULT_PREMIO || "1 café gratis a elección"
     });
   })();
 
@@ -224,7 +224,7 @@
   function renderCards(member, cards, meta, premio) {
     if (!cardArea) return;
     var m = typeof meta === "number" ? meta : (cards && cards[0] && cards[0].stamps_required) || 8;
-    var pr = premio || (cards && cards[0] && cards[0].reward) || "1 café gratis";
+    var pr = premio || (cards && cards[0] && cards[0].reward) || "1 café gratis a elección";
     var stickers = typeof member.stickers === "number"
       ? member.stickers
       : (cards && cards[0] ? cards[0].stamps : 0);
@@ -319,6 +319,68 @@
     });
   }
 
+
+  /* —— Cómo funciona (modal) —— */
+  (function () {
+    var modal = document.querySelector("[data-howto]");
+    if (!modal) return;
+    var dialog = modal.querySelector(".howto-dialog");
+    var openers = document.querySelectorAll("[data-howto-open]");
+    var lastFocus = null;
+    var FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    function focusables() {
+      return Array.prototype.slice.call(dialog.querySelectorAll(FOCUSABLE)).filter(function (el) {
+        return el.offsetParent !== null || el === dialog;
+      });
+    }
+
+    function openHowTo(fromEl) {
+      lastFocus = fromEl || document.activeElement;
+      modal.hidden = false;
+      document.body.style.overflow = "hidden";
+      (dialog || modal).focus();
+      var list = focusables();
+      if (list.length) list[0].focus();
+    }
+
+    function closeHowTo() {
+      if (modal.hidden) return;
+      modal.hidden = true;
+      document.body.style.overflow = "";
+      if (lastFocus && typeof lastFocus.focus === "function") {
+        try { lastFocus.focus(); } catch (e) {}
+      }
+      lastFocus = null;
+    }
+
+    openers.forEach(function (btn) {
+      btn.addEventListener("click", function () { openHowTo(btn); });
+    });
+    modal.querySelectorAll("[data-howto-close]").forEach(function (el) {
+      el.addEventListener("click", closeHowTo);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (modal.hidden) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeHowTo();
+        return;
+      }
+      if (e.key !== "Tab" || !dialog) return;
+      var list = focusables();
+      if (!list.length) return;
+      var first = list[0];
+      var last = list[list.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+  })();
 
   /* Map: avoid scroll trap — tap to enable interaction */
   document.querySelectorAll(".map-embed--touch").forEach(function (box) {
