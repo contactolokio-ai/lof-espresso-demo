@@ -29,7 +29,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/styles.css?v=15">
+<script>
+/* Hero intro gate: home only, no reduced-motion, no deep hash */
+(function(){
+  try {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var raw = (location.hash || "#/").replace(/^#\/?/, "");
+    var name = (raw.split("?")[0].split("/")[0] || "home").toLowerCase();
+    if (name === "" || name === "inicio") name = "home";
+    if (name !== "home") return;
+    document.documentElement.classList.add("is-intro");
+  } catch (e) {}
+})();
+</script>
+<link rel="stylesheet" href="/css/styles.css?v=16">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -745,6 +758,7 @@
 <script src="/js/supabase-config.js?v=9" defer></script>
 <script src="/js/rut.js?v=9" defer></script>
 <script src="/js/stamp-card.js?v=14" defer></script>
-<script src="/js/main.js?v=13" defer></script>
+<script src="/js/intro.js?v=1" defer></script>
+<script src="/js/main.js?v=14" defer></script>
 </body>
 </html>

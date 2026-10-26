@@ -1208,3 +1208,83 @@ input[type="number"] {
   .carta-chips-wrap { top: 64px; }
   .carta-chips { justify-content: center; }
 }
+
+
+/* —— Hero entrance (Escape-inspired wipe + letters) —— */
+html.is-intro,
+html.is-intro body {
+  overflow: hidden;
+}
+/* Brief paper beat: photo clipped from bottom; content waiting */
+html.is-intro .hero--photo .hero-photo {
+  clip-path: inset(100% 0 0 0);
+  will-change: clip-path;
+}
+html.is-intro .hero--photo .hero-scrim {
+  opacity: 0;
+}
+html.is-intro .hero--photo .hero-inner > *:not(h1) {
+  opacity: 0;
+}
+html.is-intro .hero--photo h1 {
+  opacity: 1; /* letters own their opacity */
+}
+/* Wipe UP: photo + scrim grow from bottom */
+html.is-intro.is-intro-wipe .hero--photo .hero-photo {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1.15s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+html.is-intro.is-intro-wipe .hero--photo .hero-scrim {
+  opacity: 1;
+  transition: opacity 0.9s ease 0.15s;
+}
+/* Per-letter rise + fade */
+.hero h1 .intro-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translate3d(0, 0.55em, 0);
+  will-change: transform, opacity;
+}
+.hero h1 .intro-space {
+  display: inline-block;
+  width: 0.28em;
+}
+html.is-intro.is-intro-letters .hero h1 .intro-char {
+  animation: lofIntroChar 0.58s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 38ms + 80ms);
+}
+@keyframes lofIntroChar {
+  from { opacity: 0; transform: translate3d(0, 0.55em, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+/* Supporting hero bits after letters start */
+html.is-intro.is-intro-letters .hero--photo .hero-logo,
+html.is-intro.is-intro-letters .hero--photo .what,
+html.is-intro.is-intro-letters .hero--photo .hero-actions {
+  animation: lofIntroFade 0.7s ease forwards;
+}
+html.is-intro.is-intro-letters .hero--photo .hero-logo { animation-delay: 0.05s; }
+html.is-intro.is-intro-letters .hero--photo .what { animation-delay: 0.45s; }
+html.is-intro.is-intro-letters .hero--photo .hero-actions { animation-delay: 0.65s; }
+@keyframes lofIntroFade {
+  from { opacity: 0; transform: translate3d(0, 10px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+/* Done: unlock everything; keep final state clean */
+html.intro-done .hero--photo .hero-photo { clip-path: none; }
+html.intro-done .hero--photo .hero-scrim { opacity: 1; }
+html.intro-done .hero--photo .hero-inner > * { opacity: 1; transform: none; }
+html.intro-done .hero h1 .intro-char {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+/* Reduced motion: no staged intro (class never applied, or force done) */
+@media (prefers-reduced-motion: reduce) {
+  html.is-intro,
+  html.is-intro body { overflow: auto; }
+  html.is-intro .hero--photo .hero-photo { clip-path: none; }
+  html.is-intro .hero--photo .hero-scrim { opacity: 1; }
+  html.is-intro .hero--photo .hero-inner > * { opacity: 1; }
+  html.is-intro .hero h1 .intro-char { opacity: 1; transform: none; animation: none; }
+}
