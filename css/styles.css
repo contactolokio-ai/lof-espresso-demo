@@ -1478,34 +1478,24 @@ html.intro-done .hero h1 .intro-char {
 body { background-image: url("/assets/beans-soft.svg?v=2"); background-size: 420px 420px; background-attachment: fixed; }
 .site-footer { background-image: url("/assets/beans-soft.svg?v=2"); background-size: 420px 420px; }
 
-/* Carta: Catedral de Rancagua (foto limpia, wash crema) */
+/* Carta: patrón suave de granos de café */
 .carta-view {
   position: relative;
   isolation: isolate;
   padding-top: 12px;
   padding-bottom: 24px;
   border-bottom: none;
-  background-color: var(--paper);
+  background-color: #F5EDE0;
   background-image:
-    linear-gradient(180deg, rgba(245,237,224,.10) 0%, rgba(245,237,224,0) 30%, rgba(245,237,224,.15) 100%),
-    url("/assets/carta-bg-cathedral.jpg?v=5");
-  background-size: cover, cover;
-  background-position: center, center 12%;
-  background-repeat: no-repeat;
+    linear-gradient(180deg, rgba(245,237,224,.55), rgba(245,237,224,.40)),
+    url("/assets/beans-soft.svg?v=2");
+  background-size: auto, 300px 300px;
+  background-repeat: no-repeat, repeat;
+  background-position: center, center top;
   background-attachment: scroll;
 }
-@media (max-width: 719px) {
-  .carta-view {
-    background-size: cover, 100% auto;
-    background-position: center, center top;
-  }
-}
-@supports (background-attachment: fixed) {
-  @media (min-width: 720px) and (hover: hover) {
-    .carta-view {
-      background-attachment: scroll, fixed;
-    }
-  }
+@media (min-width: 720px) {
+  .carta-view { background-size: auto, 380px 380px; }
 }
 .carta-view .carta-head {
   position: relative;
@@ -1524,7 +1514,7 @@ body { background-image: url("/assets/beans-soft.svg?v=2"); background-size: 420
   position: relative;
   z-index: 1;
 }
-/* Section wrappers stay mostly open so cathedral shows in gaps */
+/* Section wrappers stay mostly open so beans show in gaps */
 .carta-view .carta-sec {
   padding: 14px 4px 10px;
   margin: 14px 0 18px;
