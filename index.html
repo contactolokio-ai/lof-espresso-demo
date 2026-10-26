@@ -42,7 +42,7 @@
   } catch (e) {}
 })();
 </script>
-<link rel="stylesheet" href="/css/styles.css?v=27">
+<link rel="stylesheet" href="/css/styles.css?v=28">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -769,6 +769,26 @@
   </div>
 </div>
 
+
+<!-- Invite fidelización — tarjeta de sellos (30s) -->
+<div class="fid-invite" data-fid-invite hidden>
+  <div class="fid-invite-backdrop" data-fid-invite-close tabindex="-1"></div>
+  <div class="fid-invite-dialog" role="dialog" aria-modal="true" aria-labelledby="fid-invite-title" tabindex="-1">
+    <button type="button" class="fid-invite-x" data-fid-invite-close aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="fid-invite-brand">
+      <img src="/assets/logo-lof-espresso.jpg" width="56" height="56" alt="Lof Espresso">
+    </div>
+    <h3 id="fid-invite-title">Junta sellos y llévate un café gratis</h3>
+    <p class="fid-invite-lead">Crea tu tarjeta de sellos gratis. Solo puedes ganar: no pierdes nada.</p>
+    <p class="fid-invite-copy">En la 7.ª visita te toca un <strong>café gratis a elección</strong>. Tu progreso queda registrado en el sistema del café.</p>
+    <div class="fid-invite-stamps" data-fid-invite-stamps aria-hidden="true"></div>
+    <button type="button" class="btn btn-primary btn-block" data-fid-invite-cta>Quiero mi tarjeta</button>
+    <button type="button" class="fid-invite-soft" data-fid-invite-close>Ahora no</button>
+  </div>
+</div>
+
 <!-- Bottom sheet item detail -->
 <div class="sheet" data-sheet hidden>
   <div class="sheet-backdrop" data-sheet-close></div>
@@ -787,5 +807,6 @@
 <script src="/js/stamp-card.js?v=15" defer></script>
 <script src="/js/intro.js?v=2" defer></script>
 <script src="/js/main.js?v=15" defer></script>
+<script src="/js/invite-fid.js?v=1" defer></script>
 </body>
 </html>

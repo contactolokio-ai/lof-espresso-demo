@@ -1788,3 +1788,136 @@ body { background-image: url("/assets/beans-soft.svg?v=2"); background-size: 420
 .footer-social a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--accent); background: var(--paper); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
 .footer-social a:hover { border-color: var(--accent); background: var(--paper-deep); }
 .footer-social svg { width: 18px; height: 18px; flex: none; }
+
+/* —— Invite fidelización (flyer card, z above howto) —— */
+.fid-invite {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+}
+.fid-invite[hidden] { display: none !important; }
+.fid-invite-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 16, 12, 0.52);
+  animation: fadeIn .22s ease;
+}
+.fid-invite-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(380px, 100%);
+  max-height: min(90vh, 560px);
+  overflow: auto;
+  background: var(--paper);
+  background-image: url("../assets/paper-grain.jpg");
+  background-size: 320px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px 22px 18px;
+  box-shadow: 0 20px 52px rgba(20, 16, 12, 0.28);
+  text-align: center;
+  animation: fidInviteIn .28s ease;
+}
+.fid-invite-dialog:focus { outline: none; }
+.fid-invite-x {
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+}
+.fid-invite-x:hover { color: var(--ink); background: color-mix(in srgb, var(--paper-deep) 80%, transparent); }
+.fid-invite-x:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.fid-invite-brand {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 14px;
+}
+.fid-invite-brand img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #fff;
+  object-fit: cover;
+}
+.fid-invite-dialog h3 {
+  margin: 0 36px 10px;
+  font-size: 1.28rem;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.fid-invite-lead {
+  margin: 0 0 8px;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+.fid-invite-copy {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.fid-invite-copy strong { color: var(--ink); font-weight: 600; }
+.fid-invite-stamps {
+  margin: 0 auto 18px;
+  max-width: 100%;
+}
+.fid-invite-stamps .stamps {
+  justify-content: center;
+  transform: scale(0.92);
+  transform-origin: center top;
+}
+.fid-invite-dialog .btn-primary {
+  margin-bottom: 8px;
+}
+.fid-invite-soft {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 10px 12px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+.fid-invite-soft:hover { color: var(--ink); }
+.fid-invite-soft:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+@keyframes fidInviteIn {
+  from { opacity: 0.45; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@media (min-width: 480px) {
+  .fid-invite { align-items: center; }
+  .fid-invite-dialog { animation-name: fidInviteInCenter; }
+  @keyframes fidInviteInCenter {
+    from { opacity: 0.45; transform: scale(0.96); }
+    to { opacity: 1; transform: none; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fid-invite-dialog,
+  .fid-invite-backdrop { animation: none; }
+  .fid-invite-stamps .stamps { transform: none; }
+}
