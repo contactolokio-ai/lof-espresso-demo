@@ -1445,3 +1445,7 @@ html.intro-done .hero h1 .intro-char {
 @media (max-height: 620px) {
   .home-fold .hero--photo .hero-hours { font-size: 0.78rem; margin: -4px 0 10px; }
 }
+
+/* Soft blurred coffee beans on paper backgrounds */
+body { background-image: url("/assets/beans-soft.svg?v=1"); background-size: 420px 420px; background-attachment: fixed; }
+.site-footer { background-image: url("/assets/beans-soft.svg?v=1"); background-size: 420px 420px; }
