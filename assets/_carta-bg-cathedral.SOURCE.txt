@@ -3,5 +3,5 @@ URL: https://commons.wikimedia.org/wiki/File:Catedral_de_Rancagua_2011.jpg
 Direct: https://upload.wikimedia.org/wikipedia/commons/f/f7/Catedral_de_Rancagua_2011.jpg
 Author: warkoholic (Flickr)
 License: CC BY-SA 2.0
-Processed: warm cream/#F5EDE0 paper wash, portrait crop focused on twin towers, for Carta section background.
+Processed: light cream wash (18%, sat 0.8), portrait crop on twin towers (re-export v5, lighter).
 Date processed: 2026-10-25

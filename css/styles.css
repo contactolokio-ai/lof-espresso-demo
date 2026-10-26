@@ -1487,18 +1487,18 @@ body { background-image: url("/assets/beans-soft.svg?v=2"); background-size: 420
   border-bottom: none;
   background-color: var(--paper);
   background-image:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--paper) 28%, transparent) 0%,
-      color-mix(in srgb, var(--paper) 8%, transparent) 22%,
-      color-mix(in srgb, var(--paper) 4%, transparent) 55%,
-      color-mix(in srgb, var(--paper) 18%, transparent) 100%
-    ),
-    url("/assets/carta-bg-cathedral.jpg?v=4");
+    linear-gradient(180deg, rgba(245,237,224,.10) 0%, rgba(245,237,224,0) 30%, rgba(245,237,224,.15) 100%),
+    url("/assets/carta-bg-cathedral.jpg?v=5");
   background-size: cover, cover;
-  background-position: center top, center 8%;
+  background-position: center, center 12%;
   background-repeat: no-repeat;
   background-attachment: scroll;
+}
+@media (max-width: 719px) {
+  .carta-view {
+    background-size: cover, 100% auto;
+    background-position: center, center top;
+  }
 }
 @supports (background-attachment: fixed) {
   @media (min-width: 720px) and (hover: hover) {
@@ -1513,7 +1513,7 @@ body { background-image: url("/assets/beans-soft.svg?v=2"); background-size: 420
   padding: 8px 12px 10px;
   margin-bottom: 4px;
   border-radius: var(--radius-sm);
-  background: color-mix(in srgb, var(--paper) 42%, transparent);
+  background: rgba(245,237,224,.82);
   backdrop-filter: blur(4px);
 }
 .carta-view .carta-chips-wrap {
