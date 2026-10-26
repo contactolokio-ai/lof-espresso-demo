@@ -1,0 +1,4 @@
+
+# Source plates / scratch (keep off Vercel)
+assets/_src-*
+assets/_*.SOURCE.*
